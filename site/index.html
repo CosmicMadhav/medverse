@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedVerse — Intelligent Health Understanding & Second Opinion Engine</title>
+  <meta name="description" content="MedVerse demystifies complex medical reports into plain English and Hindi, compares conflicting doctor opinions side-by-side, and equips patients for their next clinic visit. Never diagnoses, never prescribes." />
+
+  <!-- Preconnect and Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- External Libraries: Three.js for 3D graphics, Lottie Player, Lucide Icons, QR Code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      /* Palette Tokens */
+      --bg: #F8F5EF;
+      --bg-canvas: #121816;
+      --bg-dark: #0F1513;
+      --card-bg: #FFFDF9;
+      --card-glass: rgba(255, 253, 249, 0.85);
+      --card-glass-dark: rgba(22, 30, 27, 0.8);
+      
+      --ink: #1B2220;
+      --ink-dark: #0B100E;
+      --muted: #6B655A;
+      --line: #E7DFD2;
+      --line-dark: rgba(255, 255, 255, 0.1);
+      
+      /* MedVerse Brand Identity */
+      --teal: #1F5C57;
+      --teal-light: #2A7973;
+      --teal-dark: #123B38;
+      --teal-soft: #DDEAE6;
+      --teal-glow: rgba(31, 92, 87, 0.28);
+      
+      --terra: #C8553D;
+      --terra-hover: #AF432D;
+      --terra-soft: #F7E4DE;
+      --terra-glow: rgba(200, 85, 61, 0.25);
+      
+      --mustard: #D9A441;
+      --mustard-soft: #F8ECCD;
+      
+      --green: #387A49;
+      --green-soft: #E0EFE3;
+      
+      --blue: #2E5C8A;
+      --blue-soft: #DFE8F2;
+      
+      --purple: #785A96;
+      --purple-soft: #ECE5F2;
+
+      /* Radii & Shadows */
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-xl: 38px;
+      
+      --shadow-sm: 0 4px 12px rgba(27, 34, 32, 0.04);
+      --shadow-md: 0 12px 32px rgba(27, 34, 32, 0.07);
+      --shadow-lg: 0 24px 60px rgba(27, 34, 32, 0.11);
+      --shadow-float: 0 30px 80px -15px rgba(31, 92, 87, 0.2);
+    }
+
+    /* Reset & Base Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    ::selection {
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+    }
+
+    /* 3D Canvas Viewport */
+    #hero-webgl-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.58;
+    }
+
+    .main-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .serif {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Jitter-Style Dynamic UI Animation Tokens */
+    @keyframes jitterFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(200, 85, 61, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(200, 85, 61, 0); }
+    }
+
+    @keyframes laserScan {
+      0% { top: 0%; opacity: 0.8; }
+      50% { top: 92%; opacity: 1; }
+      100% { top: 0%; opacity: 0.8; }
+    }
+
+    @keyframes soundBarDance {
+      0%, 100% { height: 6px; }
+      50% { height: 22px; }
+    }
+
+    /* Floating Navigation */
+    header.site-nav {
+      position: sticky;
+      top: 20px;
+      z-index: 999;
+      margin-bottom: 20px;
+    }
+
+    .nav-bar {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--card-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-bar:hover {
+      border-color: var(--teal);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      position: relative;
+      box-shadow: 0 6px 16px var(--teal-glow);
+    }
+
+    .brand-mark::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--terra);
+      border: 2px solid var(--card-bg);
+    }
+
+    .brand-name {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--teal-dark);
+      letter-spacing: -0.04em;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-menu a:hover {
+      color: var(--teal-dark);
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--teal);
+      border-radius: 2px;
+      transition: width 0.25s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switcher-btn {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--teal-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .lang-switcher-btn:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+      transform: scale(1.05);
+    }
+
+    .btn-nav-apk {
+      background: var(--teal);
+      color: #FFF;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px var(--teal-glow);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-nav-apk:hover {
+      background: var(--teal-dark);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 22px rgba(31, 92, 87, 0.35);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 50px 0 100px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--teal-dark);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .indicator-radar {
+      width: 10px;
+      height: 10px;
+      background: var(--terra);
+      border-radius: 50%;
+      animation: pulseGlow 2s infinite;
+    }
+
+    .hero-headline {
+      font-size: clamp(42px, 5.5vw, 68px);
+      line-height: 1.06;
+      color: var(--ink-dark);
+      margin-bottom: 26px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--terra);
+      font-family: 'Fraunces', serif;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-headline em::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: var(--mustard-soft);
+      z-index: -1;
+      border-radius: 6px;
+      transform: rotate(-1.5deg);
+    }
+
+    .hero-lead-text {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 580px;
+    }
+
+    .hero-actions-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .btn-action-primary {
+      background: var(--teal);
+      color: #FFF;
+      text-decoration: none;
+      padding: 18px 32px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 16.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 28px var(--teal-glow);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-action-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 36px rgba(31, 92, 87, 0.35);
+    }
+
+    .btn-action-secondary {
+      background: var(--card-bg);
+      color: var(--ink-dark);
+      border: 1.5px solid var(--line);
+      text-decoration: none;
+      padding: 18px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-action-secondary:hover {
+      background: var(--bg);
+      border-color: var(--teal);
+      color: var(--teal);
+      transform: translateY(-2px);
+    }
+
+    .hero-proof-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px;
+      padding-top: 28px;
+      border-top: 1px dashed var(--line);
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proof-item i {
+      color: var(--green);
+    }
+
+    /* 3D Interactive Smartphone Chassis */
+    .phone-perspective-stage {
+      perspective: 1400px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .device-chassis {
+      width: 330px;
+      background: #FFFFFF;
+      border-radius: 46px;
+      padding: 12px;
+      border: 1.5px solid var(--line);
+      box-shadow: var(--shadow-float), 0 0 0 12px rgba(255, 255, 255, 0.6);
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      position: relative;
+    }
+
+    .device-speaker-notch {
+      width: 130px;
+      height: 20px;
+      background: var(--ink-dark);
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .notch-camera-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1F2E2B;
+    }
+
+    .notch-mic-line {
+      width: 36px;
+      height: 3px;
+      border-radius: 3px;
+      background: #2D3E3A;
+    }
+
+    .device-screen {
+      background: var(--bg);
+      border-radius: 34px;
+      padding: 18px 16px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .avatar-mini {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--terra);
+    }
+
+    .phone-live-card {
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .phone-mini-diff {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .mini-doc-box {
+      padding: 8px 10px;
+      background: #FAF8F5;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 11px;
+    }
+
+    .mini-doc-box.a { border-top: 3px solid var(--blue); }
+    .mini-doc-box.b { border-top: 3px solid var(--purple); }
+
+    .mini-doc-box b {
+      display: block;
+      font-size: 11.5px;
+      color: var(--ink-dark);
+    }
+
+    .mini-row {
+      background: #FFFDF9;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .mini-row-head {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .tag-diff-pill {
+      background: var(--terra-soft);
+      color: var(--terra);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .tag-agree-pill {
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .screen-cta-strip {
+      background: var(--terra);
+      color: #FFF;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px var(--terra-glow);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .screen-cta-strip:hover {
+      transform: scale(1.02);
+    }
+
+    /* Floating Holographic Chips */
+    .holo-chip {
+      position: absolute;
+      background: var(--card-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--line);
+      padding: 12px 18px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      z-index: 20;
+      animation: jitterFloat 6s ease-in-out infinite alternate;
+    }
+
+    .holo-chip-top {
+      top: 8%;
+      right: -35px;
+      animation-delay: 0.2s;
+    }
+
+    .holo-chip-bottom {
+      bottom: 12%;
+      left: -45px;
+      animation-delay: 1.8s;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--line);
+      position: relative;
+    }
+
+    .section-eyebrow-tag {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terra);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .section-main-heading {
+      font-size: clamp(34px, 4.2vw, 48px);
+      line-height: 1.12;
+      color: var(--ink-dark);
+      margin-bottom: 20px;
+    }
+
+    .section-subtext {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.6;
+    }
+
+    /* Before vs After Interactive Showcase */
+    .before-after-wrapper {
+      margin-top: 54px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .comparison-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .split-col {
+      padding: 28px;
+      border-radius: var(--radius-md);
+    }
+
+    .col-before {
+      background: #F8F5F2;
+      border: 1px solid #E4DDD2;
+    }
+
+    .col-after {
+      background: #F0F7F5;
+      border: 1.5px solid var(--teal);
+      box-shadow: 0 8px 24px var(--teal-glow);
+    }
+
+    .split-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .badge-chaos {
+      background: #FCE8E6;
+      color: #9E2A2B;
+    }
+
+    .badge-clarity {
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+    }
+
+    .point-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .point-item i {
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Survey Metrics Infographic */
+    .survey-stats-deck {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .survey-metric-card {
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .survey-metric-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--teal);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .survey-percent-num {
+      font-family: 'Fraunces', serif;
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .survey-metric-desc {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Interactive Laboratory Testing Station */
+    .lab-station-box {
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      margin-top: 50px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .station-nav-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+      margin-bottom: 36px;
+      overflow-x: auto;
+    }
+
+    .station-tab-trigger {
+      background: transparent;
+      border: none;
+      padding: 12px 24px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+
+    .station-tab-trigger.active {
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      transform: scale(1.03);
+    }
+
+    .station-panel {
+      display: none;
+      animation: tabFadeIn 0.35s ease;
+    }
+
+    .station-panel.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Lab 1: Text De-Jargonizer & OCR Laser */
+    .dejargon-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .raw-terminal-view {
+      background: #181E1C;
+      color: #7EE787;
+      padding: 26px;
+      border-radius: 20px;
+      border: 1px solid #283632;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.8;
+      box-shadow: inset 0 2px 14px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ocr-scan-laser {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #22C55E, transparent);
+      box-shadow: 0 0 12px #22C55E;
+      animation: laserScan 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .terminal-active-line {
+      background: rgba(200, 85, 61, 0.4);
+      color: #FFF;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border-left: 3px solid var(--terra);
+      display: block;
+    }
+
+    .medverse-explanation-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px;
+    }
+
+    .audio-play-pill {
+      background: var(--teal);
+      color: #FFF;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .audio-play-pill:hover {
+      background: var(--teal-dark);
+      transform: scale(1.05);
+    }
+
+    .sound-equalizer-bars {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+    }
+
+    .eq-bar {
+      width: 3px;
+      background: #FFF;
+      border-radius: 2px;
+      height: 6px;
+    }
+
+    .eq-bar.active {
+      animation: soundBarDance 1s ease-in-out infinite alternate;
+    }
+    .eq-bar:nth-child(2).active { animation-delay: 0.2s; }
+    .eq-bar:nth-child(3).active { animation-delay: 0.4s; }
+
+    .interactive-range-gauge {
+      margin: 24px 0 16px;
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .gauge-track {
+      height: 12px;
+      background: #E8E2D8;
+      border-radius: 999px;
+      position: relative;
+      margin: 20px 0 12px;
+    }
+
+    .gauge-normal-band {
+      position: absolute;
+      left: 38%;
+      width: 42%;
+      height: 100%;
+      background: var(--green-soft);
+      border-left: 2px dashed var(--green);
+      border-right: 2px dashed var(--green);
+    }
+
+    .gauge-needle {
+      position: absolute;
+      left: 24%;
+      top: -6px;
+      width: 24px;
+      height: 24px;
+      background: var(--terra);
+      border: 3.5px solid #FFF;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transform: translateX(-50%);
+    }
+
+    /* Lab 2: Opinion Comparison Simulator */
+    .case-picker-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .case-choice-btn {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-dark);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .case-choice-btn.active {
+      background: var(--ink-dark);
+      color: #FFF;
+      border-color: var(--ink-dark);
+      transform: scale(1.03);
+    }
+
+    .opinion-table-wrap {
+      overflow-x: auto;
+    }
+
+    .opinion-matrix {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 14px;
+    }
+
+    .matrix-row {
+      background: var(--bg);
+      border-radius: 16px;
+      transition: all 0.25s ease;
+    }
+
+    .matrix-row:hover {
+      box-shadow: var(--shadow-md);
+      background: #FFF;
+    }
+
+    .matrix-row td {
+      padding: 18px 20px;
+      font-size: 14.5px;
+      vertical-align: top;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .matrix-row td:first-child {
+      border-left: 1px solid var(--line);
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      font-weight: 800;
+      width: 20%;
+      background: #FAF7F2;
+    }
+
+    .matrix-row td:last-child {
+      border-right: 1px solid var(--line);
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+
+    /* Lab 3: Emergency QR Card 3D Simulator */
+    .qr-interactive-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .health-card-3d {
+      background: linear-gradient(135deg, #1A3835 0%, #102624 100%);
+      color: #FFF;
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 24px 60px rgba(18, 59, 56, 0.4);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .health-card-3d::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(200, 85, 61, 0.4) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .card-top-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .emergency-chip-banner {
+      background: rgba(200, 85, 61, 0.3);
+      border: 1px solid var(--terra);
+      color: #FFC0B2;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .qr-render-box {
+      background: #FFF;
+      padding: 16px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Comprehensive Features Grid */
+    .core-features-deck {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 54px;
+    }
+
+    .feature-box-card {
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .feature-box-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--teal);
+    }
+
+    .feature-icon-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box-card:hover .feature-icon-badge {
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .feature-box-card h3 {
+      font-size: 24px;
+      color: var(--ink-dark);
+      margin-bottom: 12px;
+    }
+
+    .feature-box-card p {
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .feature-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .mini-tag-badge {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* Safety & Medical Ethics Manifesto */
+    .safety-manifesto-container {
+      background: linear-gradient(135deg, var(--mustard-soft) 0%, #F5E8C8 100%);
+      border: 1.5px solid #E8D4A8;
+      border-radius: var(--radius-xl);
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .safety-manifesto-container h2 {
+      font-size: 40px;
+      color: #593E05;
+      margin-bottom: 16px;
+    }
+
+    .safety-manifesto-container p {
+      font-size: 18px;
+      color: #4A3508;
+      line-height: 1.6;
+    }
+
+    .safety-pillars-stack {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .safety-pillar-card {
+      background: rgba(255, 253, 249, 0.85);
+      border: 1px solid rgba(232, 212, 168, 0.9);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-dark);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(90, 62, 5, 0.05);
+    }
+
+    .safety-pillar-card i {
+      color: var(--terra);
+      flex-shrink: 0;
+    }
+
+    /* Standalone APK Download Station */
+    .apk-download-vault {
+      background: var(--ink-dark);
+      color: #FFFDF9;
+      border-radius: var(--radius-xl);
+      padding: 64px;
+      margin: 80px 0;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    }
+
+    .apk-download-vault::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      right: -150px;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(31, 92, 87, 0.5) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .btn-download-massive {
+      background: var(--teal);
+      color: #FFF;
+      text-decoration: none;
+      padding: 20px 40px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 12px 34px rgba(31, 92, 87, 0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-download-massive:hover {
+      background: #25746E;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 18px 44px rgba(31, 92, 87, 0.65);
+    }
+
+    .apk-spec-glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(14px);
+    }
+
+    .spec-table-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 14.5px;
+    }
+
+    .spec-table-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-table-row .key {
+      color: #9C968A;
+    }
+
+    .spec-table-row .val {
+      font-weight: 700;
+      color: #FFF;
+    }
+
+    /* Creators Grid */
+    .creators-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .creator-card {
+      background: #FFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .creator-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--teal);
+    }
+
+    .creator-avatar-badge {
+      width: 78px;
+      height: 78px;
+      border-radius: 24px;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer.site-footer {
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      padding: 70px 0 40px;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .footer-columns-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+
+    .footer-disclaimer-strip {
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-lead-text {
+        margin: 0 auto 40px;
+      }
+      .hero-actions-cluster {
+        justify-content: center;
+      }
+      .hero-proof-bar {
+        justify-content: center;
+      }
+      .survey-stats-deck {
+        grid-template-columns: 1fr 1fr;
+      }
+      .core-features-deck {
+        grid-template-columns: 1fr 1fr;
+      }
+      .dejargon-layout, .qr-interactive-stage, .safety-manifesto-container, .apk-download-vault, .footer-columns-grid {
+        grid-template-columns: 1fr;
+      }
+      .creators-grid {
+        grid-template-columns: 1fr;
+      }
+      .comparison-split-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav-menu {
+        display: none;
+      }
+      .survey-stats-deck, .core-features-deck {
+        grid-template-columns: 1fr;
+      }
+      .holo-chip {
+        display: none;
+      }
+      .apk-download-vault {
+        padding: 36px 24px;
+      }
+      .safety-manifesto-container {
+        padding: 36px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Three.js 3D WebGL Organic Wireframe Mesh -->
+  <div id="hero-webgl-canvas"></div>
+
+  <div class="main-wrapper">
+    <!-- Navigation Header -->
+    <header class="site-nav">
+      <div class="container">
+        <nav class="nav-bar">
+          <a href="#" class="nav-brand">
+            <div class="brand-mark">
+              <i data-lucide="activity" style="width: 22px; height: 22px;"></i>
+            </div>
+            <span class="brand-name">MedVerse</span>
+          </a>
+
+          <ul class="nav-menu">
+            <li><a href="#why" data-i18n="nav_why">Why MedVerse</a></li>
+            <li><a href="#simulator" data-i18n="nav_demo">Interactive Lab</a></li>
+            <li><a href="#features" data-i18n="nav_features">Capabilities</a></li>
+            <li><a href="#safety" data-i18n="nav_safety">Safety Manifesto</a></li>
+            <li><a href="#team" data-i18n="nav_team">Creators</a></li>
+          </ul>
+
+          <div class="nav-controls">
+            <button class="lang-switcher-btn" id="langSwitcherBtn" onclick="switchLanguage()">
+              <i data-lucide="globe" style="width: 15px; height: 15px;"></i>
+              <span id="langSwitchLabel">हिंदी में देखें</span>
+            </button>
+            <a href="medverse.apk" download class="btn-nav-apk">
+              <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav_apk_btn">Download APK</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="container">
+      <section class="hero-section" style="border-top: none; padding-top: 20px;">
+        <div class="hero-grid">
+          <div class="hero-text-content">
+            <div class="hero-badge-tag">
+              <span class="indicator-radar"></span>
+              <span data-i18n="hero_badge_text">IEEE WIE ILS 2026 Academic Innovation</span>
+            </div>
+
+            <h1 class="hero-headline" data-i18n="hero_heading">
+              Your health reports, in words <em>you understand.</em>
+            </h1>
+
+            <p class="hero-lead-text" data-i18n="hero_subheading">
+              MedVerse collects scattered medical records, explains complex lab reports in plain English & Hindi, and compares conflicting doctor advice side by side — empowering you for your next consultation.
+            </p>
+
+            <div class="hero-actions-cluster">
+              <a href="medverse.apk" download class="btn-action-primary">
+                <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                <span data-i18n="btn_get_apk">Download Android APK (52.3 MB)</span>
+              </a>
+              <a href="#simulator" class="btn-action-secondary">
+                <i data-lucide="play-circle" style="width: 20px; height: 20px;"></i>
+                <span data-i18n="btn_explore_lab">Launch Interactive Lab</span>
+              </a>
+            </div>
+
+            <div class="hero-proof-bar">
+              <div class="proof-item">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                <span data-i18n="proof_zero_diag">Zero Diagnostic Claims</span>
+              </div>
+              <div class="proof-item">
+                <i data-lucide="shield-alert" style="width: 18px; height: 18px;"></i>
+                <span data-i18n="proof_redflag">Hardcoded Red-Flag Alerts</span>
+              </div>
+              <div class="proof-item">
+                <i data-lucide="map-pin" style="width: 18px; height: 18px;"></i>
+                <span>Pratapgarh, Rajasthan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Phone Chassis Experience -->
+          <div class="phone-perspective-stage" id="chassisStage">
+            <div class="device-chassis" id="deviceChassis">
+              <div class="device-speaker-notch">
+                <div class="notch-camera-dot"></div>
+                <div class="notch-mic-line"></div>
+              </div>
+
+              <div class="device-screen">
+                <div>
+                  <div class="screen-top-bar">
+                    <div class="user-profile-badge">
+                      <span class="avatar-mini"></span>
+                      <span>Sunita Maheshwari (Mother)</span>
+                    </div>
+                    <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--teal);"></i>
+                  </div>
+
+                  <div class="phone-live-card">
+                    <div style="font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">
+                      Second Opinion Comparison
+                    </div>
+                    <div class="phone-mini-diff">
+                      <div class="mini-doc-box a">
+                        <b>Dr. Rajesh Kumar</b>
+                        <span>Orthopaedic Surgeon</span>
+                      </div>
+                      <div class="mini-doc-box b">
+                        <b>Dr. Meera Sharma</b>
+                        <span>Rehab Specialist</span>
+                      </div>
+                    </div>
+
+                    <div class="mini-row">
+                      <div class="mini-row-head">
+                        <span>Diagnosis</span>
+                        <span class="tag-agree-pill">Both Agree</span>
+                      </div>
+                      <span style="font-size: 11px; color: var(--muted);">Osteoarthritis of right knee</span>
+                    </div>
+
+                    <div class="mini-row">
+                      <div class="mini-row-head">
+                        <span>Treatment Plan</span>
+                        <span class="tag-diff-pill">Differs</span>
+                      </div>
+                      <span style="font-size: 11px; color: var(--ink-dark);">A: Knee Replacement (2 mos)<br/>B: 12 Wks Physiotherapy first</span>
+                    </div>
+
+                    <div class="mini-row">
+                      <div class="mini-row-head">
+                        <span>Pain Medication</span>
+                        <span class="tag-diff-pill">Differs</span>
+                      </div>
+                      <span style="font-size: 11px; color: var(--ink-dark);">Etoricoxib vs Paracetamol</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="screen-cta-strip" onclick="scrollToId('simulator')">
+                  <i data-lucide="message-square" style="width: 15px; height: 15px;"></i>
+                  <span>Questions for Next Doctor Visit (6)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Holographic Badges -->
+            <div class="holo-chip holo-chip-top">
+              <i data-lucide="file-check-2" style="color: var(--teal); width: 22px; height: 22px;"></i>
+              <div>
+                <div style="font-size: 11px; color: var(--muted);">OCR Line Matcher</div>
+                <div style="color: var(--teal-dark);">99.2% Source Verifiability</div>
+              </div>
+            </div>
+
+            <div class="holo-chip holo-chip-bottom">
+              <i data-lucide="alert-triangle" style="color: var(--terra); width: 22px; height: 22px;"></i>
+              <div>
+                <div style="font-size: 11px; color: var(--muted);">Drug Conflict Radar</div>
+                <div style="color: var(--terra);">Duplicate NSAID Prevented</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- The Problem & Field Research Section -->
+    <section id="why">
+      <div class="container">
+        <span class="section-eyebrow-tag">
+          <i data-lucide="bar-chart-2" style="width: 14px; height: 14px;"></i>
+          <span data-i18n="problem_eyebrow">Clinical Survey & Reality</span>
+        </span>
+        <h2 class="section-main-heading" data-i18n="problem_heading">Patients get the prescriptions, but not the comprehension.</h2>
+        <p class="section-subtext" data-i18n="problem_subtext">
+          Reports from one diagnostic lab, prescriptions from another hospital, and conflicting doctor opinions leave patients anxious and confused. We surveyed 31 families across Rajasthan to quantify this gap:
+        </p>
+
+        <div class="survey-stats-deck">
+          <div class="survey-metric-card">
+            <div class="survey-percent-num">96.8%</div>
+            <div class="survey-metric-desc" data-i18n="survey_stat_1">Consulted more than one doctor for the same medical condition</div>
+          </div>
+          <div class="survey-metric-card">
+            <div class="survey-percent-num">83.9%</div>
+            <div class="survey-metric-desc" data-i18n="survey_stat_2">Received conflicting treatment advice from different specialists</div>
+          </div>
+          <div class="survey-metric-card">
+            <div class="survey-percent-num">64.5%</div>
+            <div class="survey-metric-desc" data-i18n="survey_stat_3">Repeated expensive lab tests because old records were misplaced</div>
+          </div>
+          <div class="survey-metric-card">
+            <div class="survey-percent-num">54.8%</div>
+            <div class="survey-metric-desc" data-i18n="survey_stat_4">Struggled to understand medical terminology and lab reference intervals</div>
+          </div>
+        </div>
+
+        <!-- Before vs After Clarity Matrix -->
+        <div class="before-after-wrapper">
+          <h3 style="font-size: 26px; color: var(--ink-dark); margin-bottom: 24px; text-align: center;" data-i18n="matrix_title">
+            The Healthcare Experience Transformation
+          </h3>
+          <div class="comparison-split-grid">
+            <div class="split-col col-before">
+              <div class="split-header-badge badge-chaos">
+                <i data-lucide="x-circle" style="width: 15px; height: 15px;"></i>
+                <span data-i18n="matrix_before_title">Without MedVerse (Current Chaos)</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="alert-circle" style="color: #C8553D;"></i>
+                <span data-i18n="matrix_b1">Cryptic lab reports causing panic over normal biological fluctuations.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="alert-circle" style="color: #C8553D;"></i>
+                <span data-i18n="matrix_b2">Doctors giving opposing advice with zero clear comparison for the patient.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="alert-circle" style="color: #C8553D;"></i>
+                <span data-i18n="matrix_b3">Accidental double-dosing of NSAID painkillers written by separate doctors.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="alert-circle" style="color: #C8553D;"></i>
+                <span data-i18n="matrix_b4">Patients freezing in consultations and forgetting critical questions.</span>
+              </div>
+            </div>
+
+            <div class="split-col col-after">
+              <div class="split-header-badge badge-clarity">
+                <i data-lucide="check-circle-2" style="width: 15px; height: 15px;"></i>
+                <span data-i18n="matrix_after_title">With MedVerse (Empowered Care)</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="check" style="color: var(--teal);"></i>
+                <span data-i18n="matrix_a1">Plain English & Hindi translations with color range bars and audio narration.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="check" style="color: var(--teal);"></i>
+                <span data-i18n="matrix_a2">Objective side-by-side diff matrix explaining <em>why</em> doctors differ.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="check" style="color: var(--teal);"></i>
+                <span data-i18n="matrix_a3">Drug class collision detection that prevents accidental overdosing.</span>
+              </div>
+              <div class="point-item">
+                <i data-lucide="check" style="color: var(--teal);"></i>
+                <span data-i18n="matrix_a4">Auto-generated doctor visit questions ready to copy to WhatsApp or print.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator Lab -->
+    <section id="simulator">
+      <div class="container">
+        <span class="section-eyebrow-tag">
+          <i data-lucide="flask-conical" style="width: 14px; height: 14px;"></i>
+          <span data-i18n="lab_eyebrow">Interactive Testing Station</span>
+        </span>
+        <h2 class="section-main-heading" data-i18n="lab_heading">Experience the MedVerse Engines Live</h2>
+        <p class="section-subtext" data-i18n="lab_subtext">
+          Test the exact algorithmic modules that run inside the MedVerse mobile application.
+        </p>
+
+        <div class="lab-station-box">
+          <!-- Station Tabs -->
+          <div class="station-nav-tabs">
+            <button class="station-tab-trigger active" onclick="activateLabTab('tab-dejargon')">
+              <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+              <span data-i18n="lab_tab_1">1. Report Simplifier & Audio</span>
+            </button>
+            <button class="station-tab-trigger" onclick="activateLabTab('tab-diff')">
+              <i data-lucide="split" style="width: 18px; height: 18px;"></i>
+              <span data-i18n="lab_tab_2">2. Second Opinion Diff Engine</span>
+            </button>
+            <button class="station-tab-trigger" onclick="activateLabTab('tab-prep')">
+              <i data-lucide="list-checks" style="width: 18px; height: 18px;"></i>
+              <span data-i18n="lab_tab_3">3. Doctor Visit Prep</span>
+            </button>
+            <button class="station-tab-trigger" onclick="activateLabTab('tab-qr')">
+              <i data-lucide="qr-code" style="width: 18px; height: 18px;"></i>
+              <span data-i18n="lab_tab_4">4. 24h Emergency QR Card</span>
+            </button>
+          </div>
+
+          <!-- Tab 1: De-Jargonizer & Laser Scan -->
+          <div id="tab-dejargon" class="station-panel active">
+            <div class="dejargon-layout">
+              <div>
+                <h4 style="font-size: 16px; margin-bottom: 12px; color: var(--ink-dark); display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="camera" style="width: 16px; height: 16px; color: var(--teal);"></i>
+                  Raw Lab Report (OCR Extracted Stream)
+                </h4>
+                <div class="raw-terminal-view">
+                  <div class="ocr-scan-laser"></div>
+                  CITY DIAGNOSTICS - HAEMATOLOGY WARD<br/>
+                  Patient: PREETI MAHESHWARI (24/F)<br/>
+                  Ref By: Dr. Anjali Verma<br/>
+                  ------------------------------------------------<br/>
+                  <span class="terminal-active-line">Haemoglobin (Hb)        9.8   g/dL    [12.0 - 15.5]</span>
+                  Total RBC Count         3.9   mill    [4.0 - 5.2]<br/>
+                  MCV                     72    fL      [80 - 100]<br/>
+                  Total WBC Count         7200  /cumm   [4000-11000]<br/>
+                  Platelet Count          2.4   lakh    [1.5 - 4.5]<br/>
+                  Impression: Microcytic hypochromic anaemia picture.
+                </div>
+                <p style="font-size: 12.5px; color: var(--muted); margin-top: 10px;">
+                  <i data-lucide="check-check" style="width: 14px; height: 14px; color: var(--green);"></i>
+                  <strong>Source-Line Anchoring:</strong> Every generated sentence strictly maps to physical OCR line coordinates.
+                </p>
+              </div>
+
+              <div class="medverse-explanation-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                  <div>
+                    <h3 style="font-size: 20px; color: var(--teal-dark);">In Simple Words (सरल शब्दों में)</h3>
+                    <span style="font-size: 13px; color: var(--muted);">Complete Blood Count (CBC) Analysis</span>
+                  </div>
+                  <button class="audio-play-pill" id="audioNarrationBtn" onclick="triggerSpeechNarration()">
+                    <div class="sound-equalizer-bars" id="eqBars">
+                      <span class="eq-bar"></span>
+                      <span class="eq-bar"></span>
+                      <span class="eq-bar"></span>
+                    </div>
+                    <span id="audioBtnLabel">Listen (सुनें)</span>
+                  </button>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 14px; border: 1px solid var(--line); margin-bottom: 18px;">
+                  <p id="liveSummaryParagraph" style="font-size: 15px; color: var(--ink-dark); line-height: 1.6;">
+                    "Your haemoglobin is lower than normal, which usually indicates mild anaemia. This is very common in women and often linked to low iron. Other blood parameters are normal."
+                  </p>
+                </div>
+
+                <div class="interactive-range-gauge">
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;">
+                    <span>Haemoglobin: 9.8 g/dL</span>
+                    <span style="color: var(--terra); background: var(--terra-soft); padding: 3px 10px; border-radius: 6px;">Low (कम)</span>
+                  </div>
+                  <div class="gauge-track">
+                    <div class="gauge-normal-band"></div>
+                    <div class="gauge-needle"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted);">
+                    <span>0 g/dL</span>
+                    <span>Standard Normal Range: 12.0 - 15.5 g/dL</span>
+                    <span>18+ g/dL</span>
+                  </div>
+                  <p style="font-size: 13px; color: var(--muted); margin-top: 14px; line-height: 1.5;">
+                    <strong>Why it matters:</strong> Haemoglobin carries oxygen across your body. Lower levels cause fatigue and breathlessness.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Opinion Comparator -->
+          <div id="tab-diff" class="station-panel">
+            <div class="case-picker-bar">
+              <span style="font-size: 14.5px; font-weight: 800; margin-right: 8px;">Select Real Patient Case:</span>
+              <button class="case-choice-btn active" onclick="switchOpinionDataset('knee')">Knee Pain (Mother, 52)</button>
+              <button class="case-choice-btn" onclick="switchOpinionDataset('diabetes')">Diabetes & Kidney (Father, 57)</button>
+              <button class="case-choice-btn" onclick="switchOpinionDataset('thyroid')">Thyroid & Anaemia (Preeti, 24)</button>
+            </div>
+
+            <div class="opinion-table-wrap">
+              <table class="opinion-matrix" id="opinionMatrixTable">
+                <!-- Dynamically rendered by JS -->
+              </table>
+            </div>
+
+            <div style="margin-top: 24px; background: var(--teal-soft); padding: 20px; border-radius: 16px; border: 1px solid rgba(31,92,87,0.2);">
+              <h4 style="font-size: 16px; color: var(--teal-dark); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="help-circle" style="width: 18px; height: 18px;"></i>
+                Why might doctors differ in their approach?
+              </h4>
+              <p style="font-size: 14px; color: var(--ink-dark); line-height: 1.6;">
+                Speciality bias plays a major role: surgeons often recommend surgical resolution to fix anatomical degeneration, whereas physio/rehab physicians first attempt conservative muscular strengthening. MedVerse never ranks doctors; it empowers you with balanced understanding.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tab 3: Visit Questions Checklist -->
+          <div id="tab-prep" class="station-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 22px; color: var(--teal-dark);">Smart Questions for Your Next Visit</h3>
+                <p style="font-size: 14.5px; color: var(--muted);">Auto-generated from conflicting prescriptions and abnormal lab trends.</p>
+              </div>
+              <button class="btn-action-primary" style="padding: 10px 20px; font-size: 14px;" onclick="copyQuestionsToWhatsApp()">
+                <i data-lucide="share-2" style="width: 16px; height: 16px;"></i>
+                <span>Copy for WhatsApp</span>
+              </button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;" id="questionsChecklistDeck">
+              <div class="point-item" style="background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer;" onclick="toggleChecklistItem(this)">
+                <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer;" />
+                <span style="font-size: 15px; font-weight: 600;">1. "Dr. Kumar, would physiotherapy for 12 weeks first be reasonable for my Grade 3 knee, or would waiting make surgery harder?"</span>
+              </div>
+              <div class="point-item" style="background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer;" onclick="toggleChecklistItem(this)">
+                <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer;" />
+                <span style="font-size: 15px; font-weight: 600;">2. "Dr. Sharma, what specific warning signs will tell us physiotherapy isn't working and surgery is inevitable?"</span>
+              </div>
+              <div class="point-item" style="background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer;" onclick="toggleChecklistItem(this)">
+                <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer;" />
+                <span style="font-size: 15px; font-weight: 600;">3. "I already had a standing bilateral knee X-ray taken on 20 Sep 2026 — can we review that rather than repeating the radiation?"</span>
+              </div>
+              <div class="point-item" style="background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; cursor: pointer;" onclick="toggleChecklistItem(this)">
+                <input type="checkbox" style="width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer;" />
+                <span style="font-size: 15px; font-weight: 600;">4. "Given my age and stomach history, is Etoricoxib 90mg or Paracetamol 650mg safer for long-term daily pain management?"</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 4: Emergency 24h QR Card -->
+          <div id="tab-qr" class="station-panel">
+            <div class="qr-interactive-stage">
+              <div class="health-card-3d">
+                <div class="card-top-info">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="brand-mark" style="width: 32px; height: 32px;">
+                      <i data-lucide="activity" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    <span style="font-weight: 800; font-size: 18px;">MedVerse Health Card</span>
+                  </div>
+                  <span class="emergency-chip-banner">24h Expiring Link</span>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                  <h3 style="font-size: 24px; color: #FFF; margin-bottom: 4px;">Ramesh Maheshwari</h3>
+                  <p style="color: #9EC7C3; font-size: 14px;">Age: 57 · Blood Group: B+ Positive</p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; margin-bottom: 16px; font-size: 13.5px;">
+                  <div style="color: #FFB4A4; font-weight: 700; margin-bottom: 4px;">⚠️ Severe Drug Allergies:</div>
+                  <div>Penicillin, Amoxicillin</div>
+                </div>
+
+                <div style="font-size: 13.5px; color: #D5EAE7;">
+                  <strong>Active Conditions:</strong> Type 2 Diabetes, Early Nephropathy<br/>
+                  <strong>Emergency Contact:</strong> +91 90016 71377 (Wife)
+                </div>
+              </div>
+
+              <div style="text-align: center;">
+                <h4 style="font-size: 18px; color: var(--ink-dark); margin-bottom: 12px;">Live Dynamic QR Code</h4>
+                <div class="qr-render-box" id="qrcodeCanvas"></div>
+                <p style="font-size: 13.5px; color: var(--muted); margin-top: 14px; max-width: 320px; margin-left: auto; margin-right: auto;">
+                  Emergency doctors scan this single code in casualty to read vital medical summaries. Link automatically invalidates after 24 hours.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Capabilities Deck -->
+    <section id="features">
+      <div class="container">
+        <span class="section-eyebrow-tag">
+          <i data-lucide="cpu" style="width: 14px; height: 14px;"></i>
+          <span data-i18n="feat_eyebrow">Architectural Capabilities</span>
+        </span>
+        <h2 class="section-main-heading" data-i18n="feat_heading">Built for Real-World Indian Healthcare Needs</h2>
+        <p class="section-subtext" data-i18n="feat_subtext">
+          Every screen and engine is engineered with strict patient safety guardrails and regional accessibility.
+        </p>
+
+        <div class="core-features-deck">
+          <!-- Feat 1 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--terra-soft); color: var(--terra);">
+              <i data-lucide="git-compare" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f1_title">Side-by-Side Opinion Diff</h3>
+            <p data-i18n="f1_desc">Compare two consultations line-by-line. Color-coded markers highlight agreement on diagnosis, differences on surgery vs medicine, and unique observations.</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">Multi-Consult</span>
+              <span class="mini-tag-badge">Unbiased Diff</span>
+            </div>
+          </div>
+
+          <!-- Feat 2 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--teal-soft); color: var(--teal);">
+              <i data-lucide="languages" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f2_title">Plain English & Hindi Engine</h3>
+            <p data-i18n="f2_desc">Translates cryptic diagnostic impressions into colloquial words with natural voice narration for elderly family members.</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">Bilingual</span>
+              <span class="mini-tag-badge">Web Speech TTS</span>
+            </div>
+          </div>
+
+          <!-- Feat 3 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--mustard-soft); color: #9E6B0D;">
+              <i data-lucide="refresh-cw" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f3_title">Duplicate Test Interceptor</h3>
+            <p data-i18n="f3_desc">Detects if a newly ordered test was already performed in the past 90 days, retrieving the previous report to prevent ₹1,000s in wasted fees.</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">90-Day Match</span>
+              <span class="mini-tag-badge">Cost Saving</span>
+            </div>
+          </div>
+
+          <!-- Feat 4 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--green-soft); color: var(--green);">
+              <i data-lucide="shield-alert" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f4_title">Cross-Doctor Drug Collision</h3>
+            <p data-i18n="f4_desc">Flags severe drug class overlaps when two different specialists write medicines of the same class (e.g. Etoricoxib + Diclofenac NSAIDs).</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">NSAID Radar</span>
+              <span class="mini-tag-badge">Overdose Shield</span>
+            </div>
+          </div>
+
+          <!-- Feat 5 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--purple-soft); color: var(--purple);">
+              <i data-lucide="lock" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f5_title">PIN-Locked Private Vault</h3>
+            <p data-i18n="f5_desc">Specialized tracking for Women's Health (PCOS, thyroid, anaemia, ANC checklist) with a PIN vault strictly excluded from shared QR health cards.</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">Women's Health</span>
+              <span class="mini-tag-badge">PIN Protected</span>
+            </div>
+          </div>
+
+          <!-- Feat 6 -->
+          <div class="feature-box-card">
+            <div class="feature-icon-badge" style="background: var(--blue-soft); color: var(--blue);">
+              <i data-lucide="users" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 data-i18n="f6_title">ASHA Community Mode</h3>
+            <p data-i18n="f6_desc">Empowers rural health workers to digitally manage records, immunization timelines, and emergency contacts for villagers without smartphones.</p>
+            <div class="feature-tags-wrap">
+              <span class="mini-tag-badge">Rural Healthcare</span>
+              <span class="mini-tag-badge">Offline Capable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety Manifesto -->
+    <section id="safety">
+      <div class="container">
+        <div class="safety-manifesto-container">
+          <div>
+            <span class="section-eyebrow-tag" style="color: #6B4905;">
+              <i data-lucide="shield" style="width: 14px; height: 14px;"></i>
+              <span data-i18n="safety_eyebrow">Medical Governance</span>
+            </span>
+            <h2 data-i18n="safety_heading">We explain. Doctors decide.</h2>
+            <p data-i18n="safety_body">
+              MedVerse is strictly an assistive health literacy engine. It never pretends to be a medical professional, never issues diagnostic verdicts, and never picks a winner in second opinions.
+            </p>
+          </div>
+
+          <ul class="safety-pillars-stack">
+            <li class="safety-pillar-card">
+              <i data-lucide="alert-octagon"></i>
+              <span data-i18n="s_rule_1">Critical threshold values (e.g. K⁺ > 6.0) trigger immediate hospital call banners with NO AI simplification.</span>
+            </li>
+            <li class="safety-pillar-card">
+              <i data-lucide="file-badge-2"></i>
+              <span data-i18n="s_rule_2">Every simplified insight is line-anchored back to the exact physical source line in your original scan.</span>
+            </li>
+            <li class="safety-pillar-card">
+              <i data-lucide="scale"></i>
+              <span data-i18n="s_rule_3">Zero doctor ranking: Differences are presented with neutral clinical context to foster doctor-patient dialogue.</span>
+            </li>
+            <li class="safety-pillar-card">
+              <i data-lucide="database"></i>
+              <span data-i18n="s_rule_4">Encrypted data residency inside India (Supabase ap-south-1) with one-click export & erase options.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Standalone APK Download Station -->
+    <div class="container">
+      <div class="apk-download-vault">
+        <div>
+          <span class="hero-badge-tag" style="background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.2);">
+            Android Release v1.0.0 (Production Ready)
+          </span>
+          <h2 style="font-size: clamp(34px, 4.5vw, 48px); margin: 16px 0; color: #FFF;" data-i18n="down_heading">
+            Get MedVerse on your Android device
+          </h2>
+          <p style="color: #C0BBB0; font-size: 17.5px; margin-bottom: 36px; line-height: 1.6;" data-i18n="down_subtext">
+            Download the standalone APK directly hosted on GitHub. Installs seamlessly on Android 8.0 and above.
+          </p>
+          <a href="medverse.apk" download class="btn-download-massive">
+            <i data-lucide="download" style="width: 24px; height: 24px;"></i>
+            <span data-i18n="down_btn_label">Download medverse.apk (52.3 MB)</span>
+          </a>
+        </div>
+
+        <div class="apk-spec-glass">
+          <h4 style="font-size: 17px; margin-bottom: 16px; color: #FFF;">Build Manifest Specification</h4>
+          <div class="spec-table-row">
+            <span class="key">Application ID</span>
+            <span class="val">com.medverse.app</span>
+          </div>
+          <div class="spec-table-row">
+            <span class="key">Supported CPU</span>
+            <span class="val">arm64-v8a / armeabi-v7a</span>
+          </div>
+          <div class="spec-table-row">
+            <span class="key">Binary File Size</span>
+            <span class="val">52.3 MB</span>
+          </div>
+          <div class="spec-table-row">
+            <span class="key">Flutter Version</span>
+            <span class="val">3.x (Material 3 Engine)</span>
+          </div>
+          <div class="spec-table-row">
+            <span class="key">Origin</span>
+            <span class="val">Pratapgarh, Rajasthan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Creators & Academic Credentials -->
+    <section id="team">
+      <div class="container">
+        <span class="section-eyebrow-tag">
+          <i data-lucide="award" style="width: 14px; height: 14px;"></i>
+          <span data-i18n="team_eyebrow">Project Creators</span>
+        </span>
+        <h2 class="section-main-heading" data-i18n="team_heading">Built with Clinical Empathy in Rajasthan</h2>
+        <p class="section-subtext" data-i18n="team_subtext">
+          Engineered for IEEE WIE ILS 2026 by researchers and software developers at APC Post Graduate College.
+        </p>
+
+        <div class="creators-grid">
+          <div class="creator-card">
+            <div class="creator-avatar-badge">PM</div>
+            <div>
+              <h3 style="font-size: 22px; color: var(--ink-dark);">Preeti Maheshwari</h3>
+              <p style="color: var(--teal); font-weight: 800; font-size: 14.5px; margin-bottom: 6px;">Research & Product Lead</p>
+              <p style="font-size: 14.5px; color: var(--muted); line-height: 1.5;">Conducted clinical field research, 31-patient survey methodologies, UX workflow specifications, and Hindi localization.</p>
+            </div>
+          </div>
+
+          <div class="creator-card">
+            <div class="creator-avatar-badge" style="background: var(--blue-soft); color: var(--blue);">ML</div>
+            <div>
+              <h3 style="font-size: 22px; color: var(--ink-dark);">Madhav Laddha</h3>
+              <p style="color: var(--blue); font-weight: 800; font-size: 14.5px; margin-bottom: 6px;">Backend & App Developer</p>
+              <p style="font-size: 14.5px; color: var(--muted); line-height: 1.5;">Architected the Flutter application, OCR document parsing pipelines, Supabase schemas, and second-opinion diff engines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-columns-grid">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+              <div class="brand-mark" style="width: 34px; height: 34px;">
+                <i data-lucide="activity" style="width: 18px; height: 18px;"></i>
+              </div>
+              <span class="brand-name" style="font-size: 22px;">MedVerse</span>
+            </div>
+            <p style="font-size: 14.5px; color: var(--muted); max-width: 400px; line-height: 1.6;">
+              Democratizing medical clarity for Indian families and caregivers. Turning confusing laboratory impressions and contradictory opinions into actionable insight.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="font-size: 16px; color: var(--ink-dark); margin-bottom: 16px;">Navigation</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px;">
+              <li><a href="#simulator" style="text-decoration: none; color: var(--muted);">Interactive Lab</a></li>
+              <li><a href="#why" style="text-decoration: none; color: var(--muted);">Survey Insights</a></li>
+              <li><a href="#features" style="text-decoration: none; color: var(--muted);">App Capabilities</a></li>
+              <li><a href="medverse.apk" download style="text-decoration: none; color: var(--teal); font-weight: 700;">Download APK</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="font-size: 16px; color: var(--ink-dark); margin-bottom: 16px;">Academic Context</h4>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">
+              IEEE WIE ILS 2026<br/>
+              APC Post Graduate College<br/>
+              Pratapgarh, Rajasthan, India
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer-strip">
+          <span>© 2026 MedVerse · Built with clinical empathy and precision.</span>
+          <span>Disclaimer: Not a substitute for professional clinical medical advice or diagnosis.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts: 3D WebGL Canvas, Interactive Laboratories & Bilingual Engine -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // ───────────── Three.js 3D WebGL Organic Wireframe Mesh ─────────────
+    (function init3DWebGLScene() {
+      const container = document.getElementById('hero-webgl-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 45;
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      // Create complex organic wireframe nodes representing molecular health structure
+      const particleGroup = new THREE.Group();
+      const icosahedronGeo = new THREE.IcosahedronGeometry(0.75, 1);
+      const wireframeMaterial = new THREE.MeshBasicMaterial({ 
+        color: 0x1F5C57, 
+        wireframe: true, 
+        transparent: true, 
+        opacity: 0.28 
+      });
+
+      const particleCount = 140;
+      for (let i = 0; i < particleCount; i++) {
+        const mesh = new THREE.Mesh(icosahedronGeo, wireframeMaterial);
+        mesh.position.x = (Math.random() - 0.5) * 85;
+        mesh.position.y = (Math.random() - 0.5) * 85;
+        mesh.position.z = (Math.random() - 0.5) * 45;
+        mesh.rotation.x = Math.random() * Math.PI;
+        mesh.rotation.y = Math.random() * Math.PI;
+        const scale = 0.6 + Math.random() * 1.4;
+        mesh.scale.set(scale, scale, scale);
+        particleGroup.add(mesh);
+      }
+      scene.add(particleGroup);
+
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      function renderLoop() {
+        requestAnimationFrame(renderLoop);
+        particleGroup.rotation.y += 0.001;
+        particleGroup.rotation.x += 0.0005;
+        particleGroup.position.x += (mouseX * 5 - particleGroup.position.x) * 0.04;
+        particleGroup.position.y += (-mouseY * 5 - particleGroup.position.y) * 0.04;
+        renderer.render(scene, camera);
+      }
+      renderLoop();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+
+    // ───────────── 3D Smartphone Mouse Parallax Physics ─────────────
+    const stage = document.getElementById('chassisStage');
+    const chassis = document.getElementById('deviceChassis');
+
+    if (stage && chassis) {
+      stage.addEventListener('mousemove', (e) => {
+        const rect = stage.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotX = (-y / rect.height) * 28;
+        const rotY = (x / rect.width) * 28;
+        chassis.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      });
+
+      stage.addEventListener('mouseleave', () => {
+        chassis.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    // ───────────── Dynamic QR Code Generator for Emergency Card ─────────────
+    (function generateEmergencyQR() {
+      const qrContainer = document.getElementById("qrcodeCanvas");
+      if (qrContainer) {
+        new QRCode(qrContainer, {
+          text: "https://medverse.app/card/demo-token-9588874415",
+          width: 140,
+          height: 140,
+          colorDark : "#1F5C57",
+          colorLight : "#FFFFFF",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+      }
+    })();
+
+    // ───────────── Lab Station Tab Switcher ─────────────
+    function activateLabTab(tabId) {
+      document.querySelectorAll('.station-tab-trigger').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.station-panel').forEach(p => p.classList.remove('active'));
+
+      event.currentTarget.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+      lucide.createIcons();
+    }
+
+    // ───────────── Lab 1: Web Speech Audio Narration with Equalizer ─────────────
+    let isNarrationActive = false;
+    function triggerSpeechNarration() {
+      const btn = document.getElementById('audioNarrationBtn');
+      const label = document.getElementById('audioBtnLabel');
+      const eqBars = document.querySelectorAll('.eq-bar');
+
+      if ('speechSynthesis' in window) {
+        if (isNarrationActive) {
+          window.speechSynthesis.cancel();
+          isNarrationActive = false;
+          label.textContent = currentLangKey === 'hi' ? 'सुनें (Listen)' : 'Listen (सुनें)';
+          btn.style.background = 'var(--teal)';
+          eqBars.forEach(b => b.classList.remove('active'));
+          return;
+        }
+
+        const text = currentLangKey === 'hi'
+          ? "आपका हीमोग्लोबिन सामान्य से कम है, जिसका मतलब आमतौर पर हल्का एनीमिया होता है। यह महिलाओं में बहुत आम है और अक्सर आयरन की कमी से जुड़ा होता है।"
+          : "Your haemoglobin is lower than normal, which usually indicates mild anaemia. This is very common in women and often linked to low iron.";
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = currentLangKey === 'hi' ? 'hi-IN' : 'en-IN';
+        utterance.rate = 0.92;
+
+        utterance.onstart = () => {
+          isNarrationActive = true;
+          label.textContent = currentLangKey === 'hi' ? 'आवाज़ चल रही है...' : 'Narrating...';
+          btn.style.background = 'var(--terra)';
+          eqBars.forEach(b => b.classList.add('active'));
+        };
+
+        utterance.onend = () => {
+          isNarrationActive = false;
+          label.textContent = currentLangKey === 'hi' ? 'सुनें (Listen)' : 'Listen (सुनें)';
+          btn.style.background = 'var(--teal)';
+          eqBars.forEach(b => b.classList.remove('active'));
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Web Speech Synthesis demo is not supported on this browser.');
+      }
+    }
+
+    // ───────────── Lab 2: Multi-Case Opinion Datasets ─────────────
+    const clinicalDatasets = {
+      knee: [
+        { topic: 'Diagnosis', tag: 'agree', docA: 'Osteoarthritis of right knee (Grade 3)', docB: 'Osteoarthritis of right knee', plain: 'Both doctors agree on what the physical issue is: wear-and-tear joint degeneration in the right knee.' },
+        { topic: 'Main Treatment', tag: 'diff', docA: 'Right Total Knee Replacement in 2–3 months', docB: 'Physiotherapy for 12 weeks first, reassess later', plain: 'Major divergence: Surgeon recommends surgical replacement; Rehab physician advises conservative physical therapy first.' },
+        { topic: 'Pain Medicine', tag: 'diff', docA: 'Etoricoxib 90mg daily (10 days)', docB: 'Paracetamol 650mg SOS (max 3/day)', plain: 'Etoricoxib is a strong anti-inflammatory NSAID; Paracetamol is milder and safer for gastric lining.' },
+        { topic: 'Supplement', tag: 'agree', docA: 'Calcium + D3 daily for 30 days', docB: 'Calcium + D3 daily for 30 days', plain: 'Identical prescription from both physicians — MedVerse ensures you avoid purchasing duplicates.' },
+        { topic: 'Lifestyle', tag: 'onlyB', docA: '—', docB: 'Weight reduction and supportive knee brace', plain: 'Only Doctor B emphasized biomechanical weight offloading and knee brace stabilization.' }
+      ],
+      diabetes: [
+        { topic: 'Diagnosis', tag: 'agree', docA: 'Type 2 Diabetes, Early Diabetic Nephropathy', docB: 'Type 2 Diabetes with microalbuminuria', plain: 'Both doctors agree that blood sugar is elevated and kidneys show early micro-stress signs.' },
+        { topic: 'Medication', tag: 'diff', docA: 'Metformin 1000mg + Dapagliflozin 10mg', docB: 'Metformin 500mg + Linagliptin 5mg', plain: 'Different drug mechanisms for renal and glycemic control.' },
+        { topic: 'Lab Re-Orders', tag: 'diff', docA: 'HbA1c & Serum Creatinine ordered', docB: 'Review existing HbA1c in 3 months', plain: 'MedVerse prevents duplicate lab tests because HbA1c (7.4%) was done 10 days ago.' }
+      ],
+      thyroid: [
+        { topic: 'Diagnosis', tag: 'agree', docA: 'Subclinical Hypothyroidism (TSH 6.8)', docB: 'Mild Subclinical Hypothyroidism + Low Iron', plain: 'Both identify elevated TSH hormone, but Doctor B also investigated the underlying iron deficiency.' },
+        { topic: 'Therapy', tag: 'diff', docA: 'Thyroxine 25 mcg daily in morning', docB: 'Lifestyle & iron supplementation for 8 weeks, repeat TSH', plain: 'Doctor A starts synthetic hormone immediately; Doctor B corrects iron first before prescribing life-long thyroxine.' }
+      ]
+    };
+
+    function switchOpinionDataset(caseKey) {
+      document.querySelectorAll('.case-choice-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const data = clinicalDatasets[caseKey];
+      const table = document.getElementById('opinionMatrixTable');
+
+      let rowsHtml = `
+        <thead>
+          <tr style="text-align: left; font-size: 13.5px; color: var(--muted);">
+            <th style="padding: 12px 20px;">Topic</th>
+            <th style="padding: 12px 20px; color: var(--blue);">Doctor A (Specialist 1)</th>
+            <th style="padding: 12px 20px; color: var(--purple);">Doctor B (Specialist 2)</th>
+            <th style="padding: 12px 20px;">Objective Plain Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+      `;
+
+      data.forEach(item => {
+        const tag = item.tag === 'agree' 
+          ? `<span class="tag-agree-pill">Both Agree</span>`
+          : (item.tag === 'diff' ? `<span class="tag-diff-pill">Differs</span>` : `<span class="mini-tag-badge">Only Doctor B</span>`);
+
+        rowsHtml += `
+          <tr class="matrix-row">
+            <td>${item.topic}<br/>${tag}</td>
+            <td><strong>${item.docA}</strong></td>
+            <td><strong>${item.docB}</strong></td>
+            <td style="color: var(--muted);">${item.plain}</td>
+          </tr>
+        `;
+      });
+
+      rowsHtml += `</tbody>`;
+      table.innerHTML = rowsHtml;
+    }
+
+    // Initialize initial table view
+    switchOpinionDataset('knee');
+
+    // ───────────── Lab 3: Checklist & WhatsApp Copy ─────────────
+    function toggleChecklistItem(el) {
+      const cb = el.querySelector('input[type="checkbox"]');
+      cb.checked = !cb.checked;
+      el.style.opacity = cb.checked ? '0.6' : '1';
+      el.style.textDecoration = cb.checked ? 'line-through' : 'none';
+    }
+
+    function copyQuestionsToWhatsApp() {
+      const q = [
+        "1. Dr. Kumar, would physiotherapy for 12 weeks first be reasonable for my Grade 3 knee, or would waiting make surgery harder?",
+        "2. Dr. Sharma, what specific warning signs will tell us physiotherapy isn't working and surgery is inevitable?",
+        "3. I already had a standing bilateral knee X-ray taken on 20 Sep 2026 — can we review that rather than repeating the radiation?",
+        "4. Is Etoricoxib 90mg or Paracetamol 650mg safer for long-term daily pain management?"
+      ].join('\n\n');
+
+      navigator.clipboard.writeText(q).then(() => {
+        alert('Questions successfully copied! You can now paste them directly into WhatsApp.');
+      });
+    }
+
+    function scrollToId(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ───────────── Bilingual Engine (English / Hindi) ─────────────
+    let currentLangKey = 'en';
+
+    const langDictionary = {
+      en: {
+        nav_why: "Why MedVerse",
+        nav_demo: "Interactive Lab",
+        nav_features: "Capabilities",
+        nav_safety: "Safety Manifesto",
+        nav_team: "Creators",
+        nav_apk_btn: "Download APK",
+        hero_badge_text: "IEEE WIE ILS 2026 Academic Innovation",
+        hero_heading: "Your health reports, in words <em>you understand.</em>",
+        hero_subheading: "MedVerse collects scattered medical records, explains complex lab reports in plain English & Hindi, and compares conflicting doctor advice side by side — empowering you for your next consultation.",
+        btn_get_apk: "Download Android APK (52.3 MB)",
+        btn_explore_lab: "Launch Interactive Lab",
+        proof_zero_diag: "Zero Diagnostic Claims",
+        proof_redflag: "Hardcoded Red-Flag Alerts",
+        problem_eyebrow: "Clinical Survey & Reality",
+        problem_heading: "Patients get the prescriptions, but not the comprehension.",
+        problem_subtext: "Reports from one diagnostic lab, prescriptions from another hospital, and conflicting doctor opinions leave patients anxious and confused. We surveyed 31 families across Rajasthan to quantify this gap:",
+        survey_stat_1: "Consulted more than one doctor for the same medical condition",
+        survey_stat_2: "Received conflicting treatment advice from different specialists",
+        survey_stat_3: "Repeated expensive lab tests because old records were misplaced",
+        survey_stat_4: "Struggled to understand medical terminology and lab reference intervals",
+        matrix_title: "The Healthcare Experience Transformation",
+        matrix_before_title: "Without MedVerse (Current Chaos)",
+        matrix_after_title: "With MedVerse (Empowered Care)",
+        matrix_b1: "Cryptic lab reports causing panic over normal biological fluctuations.",
+        matrix_b2: "Doctors giving opposing advice with zero clear comparison for the patient.",
+        matrix_b3: "Accidental double-dosing of NSAID painkillers written by separate doctors.",
+        matrix_b4: "Patients freezing in consultations and forgetting critical questions.",
+        matrix_a1: "Plain English & Hindi translations with color range bars and audio narration.",
+        matrix_a2: "Objective side-by-side diff matrix explaining why doctors differ.",
+        matrix_a3: "Drug class collision detection that prevents accidental overdosing.",
+        matrix_a4: "Auto-generated doctor visit questions ready to copy to WhatsApp or print.",
+        lab_eyebrow: "Interactive Testing Station",
+        lab_heading: "Experience the MedVerse Engines Live",
+        lab_subtext: "Test the exact algorithmic modules that run inside the MedVerse mobile application.",
+        lab_tab_1: "1. Report Simplifier & Audio",
+        lab_tab_2: "2. Second Opinion Diff Engine",
+        lab_tab_3: "3. Doctor Visit Prep",
+        lab_tab_4: "4. 24h Emergency QR Card",
+        feat_eyebrow: "Architectural Capabilities",
+        feat_heading: "Built for Real-World Indian Healthcare Needs",
+        feat_subtext: "Every screen and engine is engineered with strict patient safety guardrails and regional accessibility.",
+        f1_title: "Side-by-Side Opinion Diff",
+        f1_desc: "Compare two consultations line-by-line. Color-coded markers highlight agreement on diagnosis, differences on surgery vs medicine, and unique observations.",
+        f2_title: "Plain English & Hindi Engine",
+        f2_desc: "Translates cryptic diagnostic impressions into colloquial words with natural voice narration for elderly family members.",
+        f3_title: "Duplicate Test Interceptor",
+        f3_desc: "Detects if a newly ordered test was already performed in the past 90 days, retrieving the previous report to prevent ₹1,000s in wasted fees.",
+        f4_title: "Cross-Doctor Drug Collision",
+        f4_desc: "Flags severe drug class overlaps when two different specialists write medicines of the same class (e.g. Etoricoxib + Diclofenac NSAIDs).",
+        f5_title: "PIN-Locked Private Vault",
+        f5_desc: "Specialized tracking for Women's Health (PCOS, thyroid, anaemia, ANC checklist) with a PIN vault strictly excluded from shared QR health cards.",
+        f6_title: "ASHA Community Mode",
+        f6_desc: "Empowers rural health workers to digitally manage records, immunization timelines, and emergency contacts for villagers without smartphones.",
+        safety_eyebrow: "Medical Governance",
+        safety_heading: "We explain. Doctors decide.",
+        safety_body: "MedVerse is strictly an assistive health literacy engine. It never pretends to be a medical professional, never issues diagnostic verdicts, and never picks a winner in second opinions.",
+        s_rule_1: "Critical threshold values (e.g. K⁺ > 6.0) trigger immediate hospital call banners with NO AI simplification.",
+        s_rule_2: "Every simplified insight is line-anchored back to the exact physical source line in your original scan.",
+        s_rule_3: "Zero doctor ranking: Differences are presented with neutral clinical context to foster doctor-patient dialogue.",
+        s_rule_4: "Encrypted data residency inside India (Supabase ap-south-1) with one-click export & erase options.",
+        down_heading: "Get MedVerse on your Android device",
+        down_subtext: "Download the standalone APK directly hosted on GitHub. Installs seamlessly on Android 8.0 and above.",
+        down_btn_label: "Download medverse.apk (52.3 MB)",
+        team_eyebrow: "Project Creators",
+        team_heading: "Built with Clinical Empathy in Rajasthan",
+        team_subtext: "Engineered for IEEE WIE ILS 2026 by researchers and software developers at APC Post Graduate College."
+      },
+      hi: {
+        nav_why: "मेडरवर्स क्यों",
+        nav_demo: "इंटरएक्टिव लैब",
+        nav_features: "क्षमताएँ",
+        nav_safety: "सुरक्षा नियम",
+        nav_team: "निर्माता",
+        nav_apk_btn: "APK डाउनलोड करें",
+        hero_badge_text: "IEEE WIE ILS 2026 अकादमिक नवाचार",
+        hero_heading: "आपकी मेडिकल रिपोर्ट्स, <em>सरल शब्दों में।</em>",
+        hero_subheading: "MedVerse आपकी बिखरी हुई रिपोर्ट्स को एक जगह लाता है, कठिन जांचों को सरल हिंदी और इंग्लिश में समझाता है, और दो डॉक्टरों की अलग-अलग सलाह की आमने-सामने तुलना करता है।",
+        btn_get_apk: "Android APK डाउनलोड करें (52.3 MB)",
+        btn_explore_lab: "लाइव डेमो चलाकर देखें",
+        proof_zero_diag: "कोई गलत निदान नहीं",
+        proof_redflag: "गंभीर खतरे के सीधे अलर्ट",
+        problem_eyebrow: "क्लिनिकल सर्वे और ज़मीनी हकीकत",
+        problem_heading: "पर्चे तो मिलते हैं, पर समझ नहीं।",
+        problem_subtext: "एक लैब की रिपोर्ट, दूसरे अस्पताल का पर्चा और अलग-अलग डॉक्टरों की विरोधाभासी राय मरीजों को डरा देती है। हमने राजस्थान के 31 परिवारों पर यह सर्वे किया:",
+        survey_stat_1: "एक ही बीमारी के लिए एक से ज़्यादा डॉक्टरों की सलाह ली",
+        survey_stat_2: "अलग-अलग डॉक्टरों से बिल्कुल विपरीत इलाज की सलाह मिली",
+        survey_stat_3: "पुरानी रिपोर्ट न मिलने से महंगे टेस्ट दोबारा करवाने पड़े",
+        survey_stat_4: "रिपोर्ट के कठिन मेडिकल शब्द और जांच के मान समझने में भारी परेशानी हुई",
+        matrix_title: "स्वास्थ्य सेवा अनुभव का रूपांतरण",
+        matrix_before_title: "MedVerse के बिना (वर्तमान भ्रम)",
+        matrix_after_title: "MedVerse के साथ (सशक्त मरीज)",
+        matrix_b1: "कठिन मेडिकल भाषा देखकर सामान्य बदलाव पर भी घबराहट होना।",
+        matrix_b2: "दो डॉक्टरों की अलग राय में यह न समझ पाना कि क्या करें।",
+        matrix_b3: "दो अलग डॉक्टरों द्वारा लिखी गई एक ही तरह की पेनकिलर खा लेना।",
+        matrix_b4: "क्लीनिक में जाकर डॉक्टर से जरूरी सवाल पूछना भूल जाना।",
+        matrix_a1: "सरल हिंदी-इंग्लिश अनुवाद, रंगीन गेज और बोलकर सुनाने की सुविधा।",
+        matrix_a2: "आमने-सामने निष्पक्ष तुलना जो समझाती है कि डॉक्टरों की राय क्यों अलग है।",
+        matrix_a3: "दवाओं के टकराव को पकड़कर ओवरडोज़ से बचाने वाला सुरक्षा कवच।",
+        matrix_a4: "डॉक्टर से पूछने के लिए तैयार सवाल (WhatsApp पर कॉपी करने योग्य)।",
+        lab_eyebrow: "इंटरएक्टिव टेस्टिंग स्टेशन",
+        lab_heading: "MedVerse के इंजनों को लाइव चलाकर देखें",
+        lab_subtext: "देखें कि MedVerse का एल्गोरिद्म मोबाइल ऐप के अंदर असल रिपोर्ट्स को कैसे प्रोसेस करता है।",
+        lab_tab_1: "1. रिपोर्ट सरलीकरण + आवाज़",
+        lab_tab_2: "2. डॉक्टरों की राय में तुलना",
+        lab_tab_3: "3. डॉक्टर विजिट की तैयारी",
+        lab_tab_4: "4. 24h इमरजेंसी QR कार्ड",
+        feat_eyebrow: "आर्किटेक्चरल क्षमताएँ",
+        feat_heading: "भारतीय परिवारों की असल ज़रूरतों के लिए निर्मित",
+        feat_subtext: "हर एक स्क्रीन और फीचर मरीज की सुरक्षा और क्षेत्रीय भाषाओं को ध्यान में रखकर तैयार किया गया है।",
+        f1_title: "आमने-सामने डॉक्टरों की तुलना",
+        f1_desc: "दो डॉक्टरों की पर्चियों को मिलाकर देखें कि वे कहाँ सहमत हैं, कहाँ सर्जरी बनाम दवा में अंतर है, और किसने क्या नया देखा।",
+        f2_title: "सरल हिंदी व इंग्लिश इंजन",
+        f2_desc: "कठिन मेडिकल शब्दों का बोलचाल की भाषा में अनुवाद, साथ ही बुजुर्गों के लिए स्पष्ट आवाज में सुनाने की सुविधा।",
+        f3_title: "दोबारा टेस्ट से बचाव",
+        f3_desc: "अगर 90 दिन के भीतर वही टेस्ट हो चुका है, तो ऐप तुरंत पुरानी रिपोर्ट दिखाकर हजारों रुपयों की बचत करवाता है।",
+        f4_title: "दवाओं का टकराव अलर्ट",
+        f4_desc: "जब दो डॉक्टर अनजाने में एक ही क्लास की दवाइयां (जैसे 2 NSAIDs) लिख देते हैं, तो ऐप तुरंत चेतावनी देता है।",
+        f5_title: "PIN-सुरक्षित प्राइवेट वॉल्ट",
+        f5_desc: "PCOS, थायरॉइड, एनीमिया और गर्भावस्था रिकॉर्ड्स के लिए सुरक्षित वॉल्ट जो पब्लिक QR कार्ड पर कभी नहीं दिखता।",
+        f6_title: "आशा (ASHA) कम्युनिटी मोड",
+        f6_desc: "गाँव की आशा कार्यकर्ताओं को बिना स्मार्टफोन वाले ग्रामीणों के स्वास्थ्य रिकॉर्ड सुरक्षित रखने में सक्षम बनाता है।",
+        safety_eyebrow: "मेडिकल गवर्नेंस",
+        safety_heading: "हम समझाते हैं। फैसला डॉक्टर का होता है।",
+        safety_body: "MedVerse केवल स्वास्थ्य साक्षरता बढ़ाने का माध्यम है। यह कभी डॉक्टर बनने का दावा नहीं करता और न ही डॉक्टरों की रैंकिंग करता है।",
+        s_rule_1: "खतरनाक जांच मान आने पर सीधे अस्पताल कॉल करने का इमरजेंसी अलर्ट दिखता है।",
+        s_rule_2: "हर एक समझाया गया वाक्य असली रिपोर्ट की लाइन से सीधे लिंक्ड होता है।",
+        s_rule_3: "किसी डॉक्टर की रैंकिंग नहीं: दोनों की राय निष्पक्ष रूप से सामने रखी जाती है।",
+        s_rule_4: "पूरा डेटा भारत में ही सुरक्षित रहता है और कभी भी मिटाया जा सकता है।",
+        down_heading: "MedVerse Android ऐप अभी डाउनलोड करें",
+        down_subtext: "GitHub से डायरेक्ट इंस्टॉल करें। Android 8.0 और उससे ऊपर के सभी फोनों पर समर्थित।",
+        down_btn_label: "medverse.apk डाउनलोड करें (52.3 MB)",
+        team_eyebrow: "प्रोजेक्ट निर्माता",
+        team_heading: "प्रतापगढ़, राजस्थान में निर्मित",
+        team_subtext: "APC स्नातकोत्तर महाविद्यालय के शोधकर्ताओं और डेवलपर्स द्वारा IEEE WIE ILS 2026 हेतु प्रस्तुत।"
+      }
+    };
+
+    function switchLanguage() {
+      currentLangKey = currentLangKey === 'en' ? 'hi' : 'en';
+      document.getElementById('langSwitchLabel').textContent = currentLangKey === 'en' ? 'हिंदी में देखें' : 'View in English';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (langDictionary[currentLangKey][key]) {
+          el.innerHTML = langDictionary[currentLangKey][key];
+        }
+      });
+
+      const summaryPara = document.getElementById('liveSummaryParagraph');
+      if (summaryPara) {
+        summaryPara.textContent = currentLangKey === 'hi'
+          ? '"आपका हीमोग्लोबिन सामान्य से कम है, जिसका मतलब आमतौर पर हल्का एनीमिया होता है। यह महिलाओं में बहुत आम है और अक्सर आयरन की कमी से जुड़ा होता है। बाकी जांचें सामान्य हैं।"'
+          : '"Your haemoglobin is lower than normal, which usually indicates mild anaemia. This is very common in women and often linked to low iron. Other blood parameters are normal."';
+      }
+
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
