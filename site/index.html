@@ -24,8 +24,8 @@
       --bg-canvas: #121816;
       --bg-dark: #0F1513;
       --card-bg: #FFFDF9;
-      --card-glass: rgba(255, 253, 249, 0.85);
-      --card-glass-dark: rgba(22, 30, 27, 0.8);
+      --card-glass: rgba(255, 253, 249, 0.88);
+      --card-glass-dark: rgba(22, 30, 27, 0.82);
       
       --ink: #1B2220;
       --ink-dark: #0B100E;
@@ -129,7 +129,7 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Jitter-Style Dynamic UI Animation Tokens */
+    /* Jitter-Style Animation Tokens */
     @keyframes jitterFloat {
       0% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-12px) rotate(1deg); }
@@ -169,7 +169,7 @@
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 10px 24px;
+      padding: 8px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -189,29 +189,14 @@
       text-decoration: none;
     }
 
-    .brand-mark {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-      border-radius: 13px;
+    .brand-mark-lottie {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFF;
       position: relative;
-      box-shadow: 0 6px 16px var(--teal-glow);
-    }
-
-    .brand-mark::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--terra);
-      border: 2px solid var(--card-bg);
     }
 
     .brand-name {
@@ -624,27 +609,27 @@
       transform: scale(1.02);
     }
 
-    /* Floating Holographic Chips */
+    /* Floating Holographic Chips with Lottie */
     .holo-chip {
       position: absolute;
       background: var(--card-glass);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--line);
-      padding: 12px 18px;
+      padding: 10px 16px;
       border-radius: 20px;
       box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       z-index: 20;
       animation: jitterFloat 6s ease-in-out infinite alternate;
     }
 
     .holo-chip-top {
-      top: 8%;
+      top: 6%;
       right: -35px;
       animation-delay: 0.2s;
     }
@@ -1048,7 +1033,7 @@
       border-bottom-right-radius: 16px;
     }
 
-    /* Lab 3: Emergency QR Card 3D Simulator */
+    /* Lab 4: Emergency QR Card 3D Simulator */
     .qr-interactive-stage {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1131,19 +1116,19 @@
       border-color: var(--teal);
     }
 
-    .feature-icon-badge {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
+    .feature-lottie-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       transition: transform 0.3s ease;
     }
 
-    .feature-box-card:hover .feature-icon-badge {
-      transform: scale(1.1) rotate(-4deg);
+    .feature-box-card:hover .feature-lottie-badge {
+      transform: scale(1.15) rotate(-3deg);
     }
 
     .feature-box-card h3 {
@@ -1209,7 +1194,7 @@
     }
 
     .safety-pillar-card {
-      background: rgba(255, 253, 249, 0.85);
+      background: rgba(255, 253, 249, 0.88);
       border: 1px solid rgba(232, 212, 168, 0.9);
       border-radius: var(--radius-md);
       padding: 16px 20px;
@@ -1432,8 +1417,8 @@
       <div class="container">
         <nav class="nav-bar">
           <a href="#" class="nav-brand">
-            <div class="brand-mark">
-              <i data-lucide="activity" style="width: 22px; height: 22px;"></i>
+            <div class="brand-mark-lottie">
+              <lottie-player src="animations/medverse_logo.json" background="transparent" speed="1" style="width: 44px; height: 44px;" loop autoplay></lottie-player>
             </div>
             <span class="brand-name">MedVerse</span>
           </a>
@@ -1505,7 +1490,7 @@
             </div>
           </div>
 
-          <!-- 3D Phone Chassis Experience -->
+          <!-- 3D Phone Chassis Experience with Lottie Animations -->
           <div class="phone-perspective-stage" id="chassisStage">
             <div class="device-chassis" id="deviceChassis">
               <div class="device-speaker-notch">
@@ -1520,7 +1505,9 @@
                       <span class="avatar-mini"></span>
                       <span>Sunita Maheshwari (Mother)</span>
                     </div>
-                    <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--teal);"></i>
+                    <div style="width: 22px; height: 22px;">
+                      <lottie-player src="animations/health_shield.json" background="transparent" speed="1" style="width: 22px; height: 22px;" loop autoplay></lottie-player>
+                    </div>
                   </div>
 
                   <div class="phone-live-card">
@@ -1571,9 +1558,9 @@
               </div>
             </div>
 
-            <!-- Floating Holographic Badges -->
+            <!-- Floating Holographic Badges with Lottie Animations -->
             <div class="holo-chip holo-chip-top">
-              <i data-lucide="file-check-2" style="color: var(--teal); width: 22px; height: 22px;"></i>
+              <lottie-player src="animations/medical_report.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
               <div>
                 <div style="font-size: 11px; color: var(--muted);">OCR Line Matcher</div>
                 <div style="color: var(--teal-dark);">99.2% Source Verifiability</div>
@@ -1581,7 +1568,7 @@
             </div>
 
             <div class="holo-chip holo-chip-bottom">
-              <i data-lucide="alert-triangle" style="color: var(--terra); width: 22px; height: 22px;"></i>
+              <lottie-player src="animations/medical_pill.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
               <div>
                 <div style="font-size: 11px; color: var(--muted);">Drug Conflict Radar</div>
                 <div style="color: var(--terra);">Duplicate NSAID Prevented</div>
@@ -1712,7 +1699,7 @@
             </button>
           </div>
 
-          <!-- Tab 1: De-Jargonizer & Laser Scan -->
+          <!-- Tab 1: De-Jargonizer & OCR Laser -->
           <div id="tab-dejargon" class="station-panel active">
             <div class="dejargon-layout">
               <div>
@@ -1848,8 +1835,8 @@
               <div class="health-card-3d">
                 <div class="card-top-info">
                   <div style="display: flex; align-items: center; gap: 10px;">
-                    <div class="brand-mark" style="width: 32px; height: 32px;">
-                      <i data-lucide="activity" style="width: 18px; height: 18px;"></i>
+                    <div class="brand-mark-lottie" style="width: 32px; height: 32px;">
+                      <lottie-player src="animations/medverse_logo.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
                     </div>
                     <span style="font-weight: 800; font-size: 18px;">MedVerse Health Card</span>
                   </div>
@@ -1885,7 +1872,7 @@
       </div>
     </section>
 
-    <!-- Comprehensive Capabilities Deck -->
+    <!-- Comprehensive Capabilities Deck with Rich Lottie Animations -->
     <section id="features">
       <div class="container">
         <span class="section-eyebrow-tag">
@@ -1900,8 +1887,8 @@
         <div class="core-features-deck">
           <!-- Feat 1 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--terra-soft); color: var(--terra);">
-              <i data-lucide="git-compare" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--terra-soft);">
+              <lottie-player src="animations/search_bacteria.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f1_title">Side-by-Side Opinion Diff</h3>
             <p data-i18n="f1_desc">Compare two consultations line-by-line. Color-coded markers highlight agreement on diagnosis, differences on surgery vs medicine, and unique observations.</p>
@@ -1913,8 +1900,8 @@
 
           <!-- Feat 2 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--teal-soft); color: var(--teal);">
-              <i data-lucide="languages" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--teal-soft);">
+              <lottie-player src="animations/medical_report.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f2_title">Plain English & Hindi Engine</h3>
             <p data-i18n="f2_desc">Translates cryptic diagnostic impressions into colloquial words with natural voice narration for elderly family members.</p>
@@ -1926,8 +1913,8 @@
 
           <!-- Feat 3 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--mustard-soft); color: #9E6B0D;">
-              <i data-lucide="refresh-cw" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--mustard-soft);">
+              <lottie-player src="animations/lab_technician.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f3_title">Duplicate Test Interceptor</h3>
             <p data-i18n="f3_desc">Detects if a newly ordered test was already performed in the past 90 days, retrieving the previous report to prevent ₹1,000s in wasted fees.</p>
@@ -1939,8 +1926,8 @@
 
           <!-- Feat 4 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--green-soft); color: var(--green);">
-              <i data-lucide="shield-alert" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--green-soft);">
+              <lottie-player src="animations/medical_pill.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f4_title">Cross-Doctor Drug Collision</h3>
             <p data-i18n="f4_desc">Flags severe drug class overlaps when two different specialists write medicines of the same class (e.g. Etoricoxib + Diclofenac NSAIDs).</p>
@@ -1952,8 +1939,8 @@
 
           <!-- Feat 5 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--purple-soft); color: var(--purple);">
-              <i data-lucide="lock" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--purple-soft);">
+              <lottie-player src="animations/health_shield.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f5_title">PIN-Locked Private Vault</h3>
             <p data-i18n="f5_desc">Specialized tracking for Women's Health (PCOS, thyroid, anaemia, ANC checklist) with a PIN vault strictly excluded from shared QR health cards.</p>
@@ -1965,8 +1952,8 @@
 
           <!-- Feat 6 -->
           <div class="feature-box-card">
-            <div class="feature-icon-badge" style="background: var(--blue-soft); color: var(--blue);">
-              <i data-lucide="users" style="width: 28px; height: 28px;"></i>
+            <div class="feature-lottie-badge" style="background: var(--blue-soft);">
+              <lottie-player src="animations/ringing_phone.json" background="transparent" speed="1" style="width: 54px; height: 54px;" loop autoplay></lottie-player>
             </div>
             <h3 data-i18n="f6_title">ASHA Community Mode</h3>
             <p data-i18n="f6_desc">Empowers rural health workers to digitally manage records, immunization timelines, and emergency contacts for villagers without smartphones.</p>
@@ -1996,19 +1983,27 @@
 
           <ul class="safety-pillars-stack">
             <li class="safety-pillar-card">
-              <i data-lucide="alert-octagon"></i>
+              <div style="width: 28px; height: 28px; flex-shrink: 0;">
+                <lottie-player src="animations/ambulance.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+              </div>
               <span data-i18n="s_rule_1">Critical threshold values (e.g. K⁺ > 6.0) trigger immediate hospital call banners with NO AI simplification.</span>
             </li>
             <li class="safety-pillar-card">
-              <i data-lucide="file-badge-2"></i>
+              <div style="width: 28px; height: 28px; flex-shrink: 0;">
+                <lottie-player src="animations/medical_report.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+              </div>
               <span data-i18n="s_rule_2">Every simplified insight is line-anchored back to the exact physical source line in your original scan.</span>
             </li>
             <li class="safety-pillar-card">
-              <i data-lucide="scale"></i>
+              <div style="width: 28px; height: 28px; flex-shrink: 0;">
+                <lottie-player src="animations/search_bacteria.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+              </div>
               <span data-i18n="s_rule_3">Zero doctor ranking: Differences are presented with neutral clinical context to foster doctor-patient dialogue.</span>
             </li>
             <li class="safety-pillar-card">
-              <i data-lucide="database"></i>
+              <div style="width: 28px; height: 28px; flex-shrink: 0;">
+                <lottie-player src="animations/health_shield.json" background="transparent" speed="1" style="width: 28px; height: 28px;" loop autoplay></lottie-player>
+              </div>
               <span data-i18n="s_rule_4">Encrypted data residency inside India (Supabase ap-south-1) with one-click export & erase options.</span>
             </li>
           </ul>
@@ -2036,7 +2031,12 @@
         </div>
 
         <div class="apk-spec-glass">
-          <h4 style="font-size: 17px; margin-bottom: 16px; color: #FFF;">Build Manifest Specification</h4>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <h4 style="font-size: 17px; color: #FFF;">Build Manifest Specification</h4>
+            <div style="width: 34px; height: 34px;">
+              <lottie-player src="animations/medverse_logo.json" background="transparent" speed="1" style="width: 34px; height: 34px;" loop autoplay></lottie-player>
+            </div>
+          </div>
           <div class="spec-table-row">
             <span class="key">Application ID</span>
             <span class="val">com.medverse.app</span>
@@ -2101,8 +2101,8 @@
         <div class="footer-columns-grid">
           <div>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
-              <div class="brand-mark" style="width: 34px; height: 34px;">
-                <i data-lucide="activity" style="width: 18px; height: 18px;"></i>
+              <div class="brand-mark-lottie" style="width: 32px; height: 32px;">
+                <lottie-player src="animations/medverse_logo.json" background="transparent" speed="1" style="width: 32px; height: 32px;" loop autoplay></lottie-player>
               </div>
               <span class="brand-name" style="font-size: 22px;">MedVerse</span>
             </div>
@@ -2227,7 +2227,7 @@
       const qrContainer = document.getElementById("qrcodeCanvas");
       if (qrContainer) {
         new QRCode(qrContainer, {
-          text: "https://medverse.app/card/demo-token-9588874415",
+          text: "https://cosmicmadhav.github.io/medverse/card/demo-token-9588874415",
           width: 140,
           height: 140,
           colorDark : "#1F5C57",
