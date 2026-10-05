@@ -427,3 +427,6 @@ html[lang="hi"] .eyebrow, html[lang="hi"] .mini-eyebrow { letter-spacing: 0; tex
   .steps { gap: 3rem; }
 }
 @media (max-width: 40rem) { .step-num { align-self: flex-start; width: 44px; } }
+
+/* the English page stays fully English; the Hindi page shows the English line instead */
+html[lang="en"] [data-lang-other] { display: none; }
