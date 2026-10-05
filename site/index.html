@@ -41,6 +41,7 @@
     <nav class="main-nav" aria-label="Main">
       <a href="#how" data-i18n="navHow">How it works</a>
       <a href="#features" data-i18n="navFeatures">Features</a>
+      <a href="#sos" data-i18n="navSos">Emergency</a>
       <a href="#safety" data-i18n="navSafety">Safety</a>
       <a href="#team" data-i18n="navTeam">Team</a>
     </nav>
@@ -125,6 +126,7 @@
             <h3 data-i18n="s1Title">Understand</h3>
             <p class="body-lg" data-i18n="s1P">Take a photo of any lab report. MedVerse explains each value in simple English or Hindi — and can read it aloud. Every number is shown against its normal range, so you can see at a glance what matters.</p>
             <p class="body-lg" data-i18n="s1P2">Every explanation links back to the exact line in your original report.</p>
+            <div class="lottie lottie-step" data-anim="lab_technician" data-loop="true" aria-hidden="true"></div>
           </div>
           <div class="demo">
             <div class="seg" role="group" aria-label="Report view">
@@ -158,6 +160,7 @@
           <div class="text">
             <h3 data-i18n="s2Title">Organise</h3>
             <p class="body-lg" data-i18n="s2P">One place for your mother’s, your father’s and your own records — in date order, so you never lose the thread. Medicine reminders, doctor visits, and a warning before you pay for a test you already did.</p>
+            <div class="lottie lottie-step" data-anim="medical_report" data-loop="true" aria-hidden="true"></div>
           </div>
           <div class="card" style="padding-bottom:.625rem">
             <div class="journey-head"><span class="t" data-i18n="journeyTitle">Sunita’s journey</span><span class="muted" style="font-size:.875rem" data-i18n="journeyMonth">September 2026</span></div>
@@ -177,6 +180,7 @@
           <div class="text">
             <h3 data-i18n="s3Title">Compare</h3>
             <p class="body-lg" data-i18n="s3P">Two doctors, two different answers? See exactly where they agree and where they differ — side by side, without taking sides. Then take a ready list of questions to your next visit.</p>
+            <div class="lottie lottie-step" data-anim="search_bacteria" data-loop="true" aria-hidden="true"></div>
           </div>
           <div class="demo">
             <div class="seg" role="group" aria-label="Example">
@@ -212,15 +216,33 @@
     </ul>
   </section>
 
+  <!-- ============ EMERGENCY ============ -->
+  <section id="sos" class="wrap section" aria-labelledby="sos-h">
+    <div class="sos-grid">
+      <div class="lottie lottie-sos" data-anim="ambulance" data-loop="true" aria-hidden="true"></div>
+      <div class="stack" style="gap:1.125rem">
+        <p class="eyebrow" data-i18n="sosEyebrow">IN AN EMERGENCY</p>
+        <h2 class="h2" id="sos-h" data-i18n="sosH">One hold. Help is on the way.</h2>
+        <p class="body-lg" data-i18n="sosP">SOS is built so it can’t be pressed by accident, and can’t be missed when it matters.</p>
+        <ol class="install">
+          <li data-i18n="sos1">Press and hold SOS for 1.5 seconds. A quick tap only shows a hint.</li>
+          <li data-i18n="sos2">A 5-second countdown starts with a loud siren and a big Cancel button, so a slip of the thumb never calls anyone.</li>
+          <li data-i18n="sos3">If you don’t cancel, your phone’s dialer opens with 108 ready, and MedVerse shows blood group, allergies, conditions and medicines to read out.</li>
+        </ol>
+        <p class="note" data-i18n="sosTry">Try it on the phone above: hold SOS.</p>
+      </div>
+    </div>
+  </section>
+
   <div class="link" aria-hidden="true" style="padding-bottom:0"><span class="link-line"></span></div>
 
   <!-- ============ SAFETY ============ -->
   <section id="safety" class="safety" aria-labelledby="safety-h">
     <div class="wrap">
       <div class="stack" style="gap:1.125rem">
-        <p class="eyebrow" data-i18n="safeEyebrow">OUR PROMISE</p>
+        <div class="safety-head"><div class="stack" style="gap:.75rem"><p class="eyebrow" data-i18n="safeEyebrow">OUR PROMISE</p>
         <h2 class="h2" id="safety-h" data-i18n="safeH">We explain.
-Doctors decide.</h2>
+Doctors decide.</h2></div><div class="lottie lottie-shield" data-anim="health_shield" data-loop="true" aria-hidden="true"></div></div>
         <p class="body-lg" data-i18n="safeP">MedVerse helps you understand your health information. It never diagnoses, never prescribes, and never tells you which doctor is right.</p>
         <div class="promises">
           <article class="promise"><h3 data-i18n="p1t">Dangerous values go straight to a doctor</h3><p data-i18n="p1x">Critical results — like potassium above 6.0 — show a “see a doctor today” alert. We don’t try to simplify those.</p></article>
@@ -293,6 +315,11 @@ Doctors decide.</h2>
     </div>
     <div class="academic"><b data-i18n="academic">ACADEMIC CONTEXT</b><strong>IEEE WIE ILS 2026</strong><span class="muted" data-i18n="college">APC Post Graduate College, Pratapgarh, Rajasthan, India</span></div>
   </section>
+
+  <!-- ============ BRAND BAND ============ -->
+  <section class="brand-band" aria-hidden="false">
+    <div class="lottie lottie-logo" data-anim="medverse_logo" data-loop="false" role="img" aria-label="MedVerse — Understand, Organise, Compare"></div>
+  </section>
 </main>
 
 <!-- ============ FOOTER ============ -->
@@ -325,5 +352,7 @@ Doctors decide.</h2>
 
 <script src="assets/js/strings.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/lottie.min.js" defer></script>
+<script src="assets/js/anim.js" defer></script>
 </body>
 </html>

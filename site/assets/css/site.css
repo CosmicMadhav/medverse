@@ -397,3 +397,33 @@ html:not(.js) .big-heart .h-outer, html:not(.js) .big-heart .h-leaf { stroke-das
 
 /* Hindi eyebrows: no letter-spacing, readable size */
 html[lang="hi"] .eyebrow, html[lang="hi"] .mini-eyebrow { letter-spacing: 0; text-transform: none; font-size: 1rem; }
+
+/* Lottie animations */
+.lottie { width: 100%; aspect-ratio: 1; }
+.lottie svg { display: block; }
+.lottie-step { max-width: 11rem; margin-top: .5rem; }
+.safety-head { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.lottie-shield { width: clamp(7rem, 16vw, 10.5rem); flex: 0 0 auto; }
+.sos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr)); gap: 3rem; align-items: center; }
+.lottie-sos { max-width: 26rem; margin: 0 auto; aspect-ratio: 4 / 3; }
+.brand-band { background: #043B42; display: flex; justify-content: center; }
+.lottie-logo { max-width: 34rem; aspect-ratio: 1; }
+@media (max-width: 40rem) { .lottie-logo { max-width: 22rem; } }
+@media (prefers-reduced-motion: reduce) { .lottie { }
+}
+
+/* intro text on the dark safety band was inheriting dark ink */
+.safety .body-lg { color: var(--on-brand-muted, #D6EFEB); max-width: 38em; }
+.lottie-logo { max-width: 26rem; }
+@media (max-width: 40rem) { .lottie-logo { max-width: 18rem; } }
+.safety .promise { flex-direction: column; align-items: flex-start; gap: .35rem; }
+.safety .promise h3 { font-size: 1.125rem; line-height: 1.35; }
+.safety .promise p { font-size: 1rem; line-height: 1.55; color: var(--on-brand-muted, #D6EFEB); }
+/* Phones: stack the number above each step so the cards get the full width */
+@media (max-width: 40rem) {
+  .steps::before { display: none; }
+  .step { flex-direction: column; gap: .75rem; }
+  .step-body { gap: 1.25rem; }
+  .steps { gap: 3rem; }
+}
+@media (max-width: 40rem) { .step-num { align-self: flex-start; width: 44px; } }

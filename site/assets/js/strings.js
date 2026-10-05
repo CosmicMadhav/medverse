@@ -236,7 +236,16 @@
     "sc2": "26 of 31 people",
     "sc3": "20 of 31 people",
     "sc4": "17 of 31 people",
-    "surveyMore": "Also: 80.6% called choosing the right treatment a major challenge, 67.7% don’t keep their records digitally, and 61.3% wanted a tool that explains reports and prescriptions."
+    "surveyMore": "Also: 80.6% called choosing the right treatment a major challenge, 67.7% don’t keep their records digitally, and 61.3% wanted a tool that explains reports and prescriptions.",
+    "navSos": "Emergency",
+    "sosEyebrow": "IN AN EMERGENCY",
+    "sosH": "One hold. Help is on the way.",
+    "sosP": "SOS is built so it can’t be pressed by accident, and can’t be missed when it matters.",
+    "sos1": "Press and hold SOS for 1.5 seconds. A quick tap only shows a hint.",
+    "sos2": "A 5-second countdown starts with a loud siren and a big Cancel button, so a slip of the thumb never calls anyone.",
+    "sos3": "If you don’t cancel, your phone’s dialer opens with 108 ready, and MedVerse shows blood group, allergies, conditions and medicines to read out.",
+    "sosTry": "Try it on the phone above: hold SOS.",
+    "logoAria": "MedVerse — Understand, Organise, Compare"
   },
   "hi": {
     "navHow": "कैसे काम करता है",
@@ -473,7 +482,16 @@
     "sc2": "31 में से 26 लोग",
     "sc3": "31 में से 20 लोग",
     "sc4": "31 में से 17 लोग",
-    "surveyMore": "साथ ही: 80.6% ने सही इलाज चुनना बड़ी चुनौती बताया, 67.7% अपने रिकॉर्ड डिजिटल नहीं रखते, और 61.3% ऐसा ऐप चाहते थे जो रिपोर्ट और पर्चे समझाए।"
+    "surveyMore": "साथ ही: 80.6% ने सही इलाज चुनना बड़ी चुनौती बताया, 67.7% अपने रिकॉर्ड डिजिटल नहीं रखते, और 61.3% ऐसा ऐप चाहते थे जो रिपोर्ट और पर्चे समझाए।",
+    "navSos": "आपातकाल",
+    "sosEyebrow": "आपातकाल में",
+    "sosH": "एक बार दबाकर रखें। मदद चल पड़ती है।",
+    "sosP": "SOS ऐसा बना है कि गलती से दब न जाए, और ज़रूरत पर चूके नहीं।",
+    "sos1": "SOS को 1.5 सेकंड दबाकर रखें। हल्का टैप करने पर सिर्फ़ संकेत दिखता है।",
+    "sos2": "तेज़ सायरन के साथ 5 सेकंड की उलटी गिनती शुरू होती है और एक बड़ा रद्द करें बटन दिखता है, ताकि अँगूठा फिसलने से कोई कॉल न जाए।",
+    "sos3": "रद्द न करें तो फ़ोन के डायलर में 108 तैयार खुल जाता है, और MedVerse ब्लड ग्रुप, एलर्जी, बीमारियाँ और दवाइयाँ पढ़कर बताने के लिए दिखाता है।",
+    "sosTry": "ऊपर वाले फ़ोन पर आज़माएँ: SOS को दबाकर रखें।",
+    "logoAria": "MedVerse — समझें, संभालें, तुलना करें"
   }
 };
   if (typeof module !== 'undefined' && module.exports) {
