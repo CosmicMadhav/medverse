@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#043B42">
+  <title>Health card · MedVerse</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    body { background: var(--bg, #F2F6F5); }
+    .card-wrap { max-width: 34rem; margin: 0 auto; padding: 1.25rem 1.25rem 4rem; }
+    .top { display: flex; align-items: center; gap: .625rem; padding: .5rem 0 1.25rem; }
+    .top b { font-family: var(--serif); letter-spacing: .06em; color: var(--brand); }
+    .hc { background: #fff; border-radius: 1.5rem; box-shadow: 0 1px 0 var(--line, #D7E3E1), 0 12px 32px rgba(4,59,66,.08); overflow: hidden; }
+    .hc-head { background: var(--brand, #043B42); color: #fff; padding: 1.25rem 1.375rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .hc-head h1 { font-family: var(--serif); font-size: 1.625rem; line-height: 1.2; font-weight: 400; overflow-wrap: anywhere; }
+    .hc-head .sub { color: #D6EFEB; font-size: 1rem; margin-top: .25rem; }
+    .blood { background: #fff; color: #B4410C; font-family: var(--serif); font-size: 1.75rem; min-width: 4rem; text-align: center; padding: .5rem .75rem; border-radius: .75rem; }
+    .hc-body { padding: .5rem 1.375rem 1.375rem; }
+    .row { padding: 1rem 0; border-bottom: 1px solid #EDF2F1; }
+    .row:last-child { border-bottom: 0; }
+    .row h2 { font-family: var(--sans); font-size: .875rem; color: #3D5A5E; font-weight: 600; margin-bottom: .25rem; }
+    .row p, .row li { font-size: 1.1875rem; line-height: 1.5; font-weight: 600; overflow-wrap: anywhere; }
+    .row ul { list-style: none; padding: 0; margin: 0; }
+    .row li small { display: block; font-size: .9375rem; font-weight: 400; color: #3D5A5E; }
+    .allergy p { color: #B4410C; }
+    .call { display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.25rem; border-radius: 999px; background: var(--brand, #043B42); color: #fff; font-weight: 700; text-decoration: none; margin-top: .375rem; }
+    .meta { margin-top: 1rem; font-size: .9375rem; color: #3D5A5E; text-align: center; }
+    .msg { background: #fff; border-radius: 1.5rem; padding: 2rem 1.5rem; text-align: center; }
+    .msg h1 { font-family: var(--serif); font-size: 1.625rem; color: var(--brand, #043B42); margin-bottom: .5rem; }
+    noscript { display: block; padding: 1rem; }
+  </style>
+</head>
+<body>
+<main class="card-wrap">
+  <div class="top">
+    <svg width="26" height="30" viewBox="-6 -6 99 112" fill="none" aria-hidden="true"><path d="M50.8 100 L55.4 92.8 L62.2 86.8 L67.1 79.6 L71.7 71.9 L76.1 63.5 L79.9 55.1 L82.8 46.7 L85 38.3 L86.2 29.9 L86.2 21.6 L84.8 13.2 L81.1 5.1 L73.9 0 L65.5 1.6 L57.7 6.3 L50.5 11.4 L42.1 13.7 L34 9.9 L26.9 4.9 L18.8 .7 L10.4 .6 L4 6.9 L.9 15.3 L0 23.7 L1 32 L3.7 40.4 L7.7 48.8 L12.5 56.3 L18.1 63.5 L24.5 70.1 L31.3 76.4 L38.2 81.7" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M23.9 32.9 L32.2 36.7 L39.7 42.1 L46 49.1 L50.4 57.2 L52.8 65.6 L53.1 72 L50.8 100" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <b>MEDVERSE</b>
+  </div>
+  <div id="out" aria-live="polite"><div class="msg"><p>Loading health card…</p></div></div>
+  <noscript>This page needs JavaScript to show the health card.</noscript>
+</main>
+<script>
+(function () {
+  var API = 'https://ykpsiwmbxslwezifqpoq.supabase.co/functions/v1/mv-card';
+  var out = document.getElementById('out');
+  var token = (location.hash || '').replace(/^#/, '');
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function row(title, cls) { var r = el('div', 'row' + (cls ? ' ' + cls : '')); r.appendChild(el('h2', null, title)); return r; }
+  function msg(h, p) { out.textContent = ''; var m = el('div', 'msg'); m.appendChild(el('h1', null, h)); m.appendChild(el('p', null, p)); out.appendChild(m); }
+
+  if (!/^[A-Za-z0-9_-]{16,64}$/.test(token)) { msg('Link not valid', 'Please scan the QR code again.'); return; }
+
+  fetch(API + '?t=' + encodeURIComponent(token)).then(function (r) { return r.json().then(function (j) { return { s: r.status, j: j }; }); })
+    .then(function (res) {
+      if (res.s !== 200) { msg(res.s === 410 ? 'This card has expired' : 'Link not valid', res.j.error || 'Ask the card owner for a new QR code.'); return; }
+      var c = res.j.card || {};
+      out.textContent = '';
+      var hc = el('section', 'hc');
+      var head = el('div', 'hc-head');
+      var left = el('div');
+      left.appendChild(el('h1', null, c.name || 'Patient'));
+      left.appendChild(el('div', 'sub', [c.age ? c.age + ' years' : '', c.gender || ''].filter(Boolean).join(' · ')));
+      head.appendChild(left);
+      var blood = el('div', 'blood', c.blood && c.blood !== 'Unknown' ? c.blood : '—');
+      blood.setAttribute('aria-label', 'Blood group ' + (c.blood || 'unknown'));
+      head.appendChild(blood);
+      hc.appendChild(head);
+
+      var body = el('div', 'hc-body');
+      var al = row('Allergies', c.allergies && c.allergies.length ? 'allergy' : '');
+      al.appendChild(el('p', null, c.allergies && c.allergies.length ? c.allergies.join(', ') : 'None known'));
+      body.appendChild(al);
+
+      var cond = row('Conditions');
+      cond.appendChild(el('p', null, c.conditions && c.conditions.length ? c.conditions.join(', ') : 'None recorded'));
+      body.appendChild(cond);
+
+      var meds = row('Current medicines');
+      if (c.medicines && c.medicines.length) {
+        var ul = el('ul');
+        c.medicines.forEach(function (m) {
+          var li = el('li', null, m.name);
+          li.appendChild(el('small', null, [m.dose, m.when].filter(Boolean).join(' · ')));
+          ul.appendChild(li);
+        });
+        meds.appendChild(ul);
+      } else { meds.appendChild(el('p', null, 'None recorded')); }
+      body.appendChild(meds);
+
+      if (c.emergency) {
+        var em = row('Emergency contact');
+        em.appendChild(el('p', null, c.emergency));
+        var a = el('a', 'call', 'Call ' + c.emergency);
+        a.href = 'tel:' + String(c.emergency).replace(/[^+\d]/g, '');
+        em.appendChild(a);
+        body.appendChild(em);
+      }
+      if (c.abha) { var ab = row('ABHA number'); ab.appendChild(el('p', null, c.abha)); body.appendChild(ab); }
+      hc.appendChild(body);
+      out.appendChild(hc);
+
+      var exp = res.j.expiresAt ? new Date(res.j.expiresAt) : null;
+      var made = c.madeOn ? new Date(c.madeOn) : null;
+      out.appendChild(el('p', 'meta',
+        (made ? 'Card made ' + made.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + '. ' : '') +
+        (exp ? 'Valid until ' + exp.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + '. ' : '') +
+        'Information entered by the patient; please verify. Not a medical record.'));
+    })
+    .catch(function () { msg('Could not load the card', 'Check your internet connection and try again.'); });
+})();
+</script>
+</body>
+</html>

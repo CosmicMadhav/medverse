@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cosmicmadhav.github.io/medverse/sitemap.xml

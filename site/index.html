@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MedVerse — your family’s health, in words you understand</title>
+  <meta name="description" content="Keep every report, prescription and doctor visit for your whole family in one place — explained in plain English and Hindi. Free for Android.">
+  <meta name="theme-color" content="#043B42">
+
+  <!-- Share preview (WhatsApp, Facebook, X, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MedVerse">
+  <meta property="og:title" content="MedVerse — your family’s health, in words you understand">
+  <meta property="og:description" content="Every report, prescription and doctor visit for your whole family — explained in plain English and Hindi. Free for Android.">
+  <meta property="og:url" content="https://cosmicmadhav.github.io/medverse/">
+  <meta property="og:image" content="https://cosmicmadhav.github.io/medverse/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:locale:alternate" content="hi_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MedVerse — your family’s health, in words you understand">
+  <meta name="twitter:image" content="https://cosmicmadhav.github.io/medverse/assets/img/og.png">
+  <link rel="canonical" href="https://cosmicmadhav.github.io/medverse/">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="MedVerse">
+      <svg width="30" height="35" viewBox="-6 -6 99 112" fill="none" aria-hidden="true"><path d="M50.8 100 L55.4 92.8 L62.2 86.8 L67.1 79.6 L71.7 71.9 L76.1 63.5 L79.9 55.1 L82.8 46.7 L85 38.3 L86.2 29.9 L86.2 21.6 L84.8 13.2 L81.1 5.1 L73.9 0 L65.5 1.6 L57.7 6.3 L50.5 11.4 L42.1 13.7 L34 9.9 L26.9 4.9 L18.8 .7 L10.4 .6 L4 6.9 L.9 15.3 L0 23.7 L1 32 L3.7 40.4 L7.7 48.8 L12.5 56.3 L18.1 63.5 L24.5 70.1 L31.3 76.4 L38.2 81.7" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M23.9 32.9 L32.2 36.7 L39.7 42.1 L46 49.1 L50.4 57.2 L52.8 65.6 L53.1 72 L50.8 100" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 22v14M59 29h14" stroke="#4FA89E" stroke-width="7" stroke-linecap="round"/></svg>
+      <span class="brand-word">MEDVERSE</span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="#how" data-i18n="navHow">How it works</a>
+      <a href="#care" data-i18n="navCare">Daily care</a>
+      <a href="#features" data-i18n="navFeatures">Features</a>
+      <a href="#sos" data-i18n="navSos">Emergency</a>
+      <a href="#safety" data-i18n="navSafety">Safety</a>
+      <a href="#team" data-i18n="navTeam">Team</a>
+    </nav>
+    <div class="header-actions">
+      <button class="chip-btn comfort-btn" id="comfortBtn" type="button" aria-pressed="false" data-i18n-aria="comfortAria" aria-label="Larger text"><span class="a">A</span><span class="p">+</span></button>
+      <button class="chip-btn" id="langBtn" type="button" lang="hi" data-i18n="langBtn" data-i18n-aria="langAria" aria-label="हिंदी में देखें">हिंदी</button>
+      <a class="chip-btn small-dl" href="#download"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span class="label" data-i18n="navDownload">Download</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section id="top" class="wrap hero" aria-labelledby="hero-h">
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">UNDERSTAND · ORGANISE · COMPARE</p>
+      <h1 id="hero-h" data-i18n="h1">Your family’s health, in words you understand.</h1>
+      <p class="alt-line" data-i18n="altLine">Your family’s health, in your language.</p>
+      <p class="lead" data-i18n="lead">Keep every report, prescription and doctor visit for your whole family in one place, and read them in plain English or Hindi. Go into your next appointment knowing what to ask.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#download">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          <span class="btn-stack"><span data-i18n="cta1">Download for Android</span><span class="sub" data-i18n="cta1sub">Free · 70.2 MB</span></span>
+        </a>
+        <a class="btn btn-outline" href="#how" data-i18n="cta2">See how it works</a>
+      </div>
+      <ul class="trust">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F8C80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="trust1">Explains, never diagnoses</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F8C80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="trust2">English &amp; Hindi</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F8C80" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="trust3">Made in Pratapgarh, Rajasthan</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <svg class="big-heart" viewBox="-8 -8 103 116" fill="none" aria-hidden="true">
+        <path class="h-outer" pathLength="1" vector-effect="non-scaling-stroke" d="M50.8 100 L55.4 92.8 L62.2 86.8 L67.1 79.6 L71.7 71.9 L76.1 63.5 L79.9 55.1 L82.8 46.7 L85 38.3 L86.2 29.9 L86.2 21.6 L84.8 13.2 L81.1 5.1 L73.9 0 L65.5 1.6 L57.7 6.3 L50.5 11.4 L42.1 13.7 L34 9.9 L26.9 4.9 L18.8 .7 L10.4 .6 L4 6.9 L.9 15.3 L0 23.7 L1 32 L3.7 40.4 L7.7 48.8 L12.5 56.3 L18.1 63.5 L24.5 70.1 L31.3 76.4 L38.2 81.7" stroke="#9FD6CF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="h-leaf" pathLength="1" vector-effect="non-scaling-stroke" d="M23.9 32.9 L32.2 36.7 L39.7 42.1 L46 49.1 L50.4 57.2 L52.8 65.6 L53.1 72 L50.8 100" stroke="#9FD6CF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="h-plus" vector-effect="non-scaling-stroke" d="M70 15v12M64 21h12" stroke="#4FA89E" stroke-width="9" stroke-linecap="round"/>
+      </svg>
+      <div class="anno anno-1" aria-hidden="true"><b data-i18n="tryIt">TRY IT</b><span data-i18n="anno1">Tap Ramesh. His ring is orange because a report needs a doctor today.</span></div>
+      <div class="anno anno-2" aria-hidden="true"><b data-i18n="tryIt">TRY IT</b><span data-i18n="anno2">Tap “Mark as taken” and watch the line fill.</span></div>
+      <div class="phone">
+        <div class="phone-screen" id="demo" role="region" data-i18n-aria="phoneAria" aria-label="Live demo of the MedVerse app"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="link" aria-hidden="true"><span class="link-line"></span><span class="link-node"></span></div>
+
+  <!-- ============ SURVEY ============ -->
+  <section class="wrap section center" aria-labelledby="survey-h">
+    <div class="section-head center">
+      <p class="eyebrow" data-i18n="surveyEyebrow">WHY WE BUILT IT</p>
+      <h2 class="h2" id="survey-h" data-i18n="surveyH">A pile of reports and no one to explain them.</h2>
+      <p class="body-lg" data-i18n="surveyP">We surveyed 31 people about how their families handle medical papers. Reports from one lab, prescriptions from another hospital, two doctors saying different things — and no one explaining any of it.</p>
+    </div>
+    <div class="stats">
+      <article class="stat"><span class="num">96.8%</span><p data-i18n="st1">had taken opinions from more than one doctor</p><small class="of" data-i18n="sc1">30 of 31 people</small></article>
+      <article class="stat"><span class="num">83.9%</span><p data-i18n="st2">got different treatment suggestions from different doctors</p><small class="of" data-i18n="sc2">26 of 31 people</small></article>
+      <article class="stat"><span class="num">64.5%</span><p data-i18n="st3">had repeated the same medical test at another hospital</p><small class="of" data-i18n="sc3">20 of 31 people</small></article>
+      <article class="stat"><span class="num">54.8%</span><p data-i18n="st4">found medical reports hard to understand</p><small class="of" data-i18n="sc4">17 of 31 people</small></article>
+    </div>
+    <p class="survey-more" data-i18n="surveyMore">Also: 80.6% called choosing the right treatment a major challenge, 67.7% don’t keep their records digitally, and 61.3% wanted a tool that explains reports and prescriptions.</p>
+    <p class="note" data-i18n="surveyNote">Google Form survey, 31 respondents. Percentages rounded to one decimal place.</p>
+  </section>
+
+  <div class="link" aria-hidden="true"><span class="link-line"></span><span class="link-node"></span></div>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" class="wrap section" aria-labelledby="how-h">
+    <div class="section-head center" style="text-align:center">
+      <p class="eyebrow" data-i18n="howEyebrow">HOW IT WORKS</p>
+      <h2 class="h2" id="how-h" data-i18n="howH">What MedVerse does</h2>
+    </div>
+
+    <ol class="steps">
+      <!-- 1 Understand -->
+      <li class="step">
+        <span class="step-num" aria-hidden="true">1</span>
+        <div class="step-body">
+          <div class="text">
+            <h3 data-i18n="s1Title">Understand</h3>
+            <p class="body-lg" data-i18n="s1P">Take a photo of a lab report. MedVerse explains each value in simple English or Hindi and can read it out loud. Every number sits next to its normal range, so you can see what matters.</p>
+            <p class="body-lg" data-i18n="s1P2">Each explanation points back to the exact line in your original report, so you can check it yourself.</p>
+            <div class="lottie lottie-step" data-anim="lab_technician" data-loop="true" aria-hidden="true"></div>
+          </div>
+          <div class="demo">
+            <div class="seg" role="group" aria-label="Report view">
+              <button type="button" id="vPrinted" aria-pressed="false" data-i18n="asPrinted">As printed</button>
+              <button type="button" id="vExplained" aria-pressed="true" data-i18n="explained">MedVerse explains</button>
+            </div>
+            <div class="printed" id="printedCard" hidden>
+              <div class="p-head"><span>BIOCHEMISTRY · SERUM ELECTROLYTES</span><span>Ref: 20418</span></div>
+              <div class="p-row"><span>S. Sodium</span><span>139</span><span>mmol/L</span><span>135–145</span></div>
+              <div class="p-row hl"><span>S. Potassium</span><span>6.3 H</span><span>mmol/L</span><span>3.5–5.1</span></div>
+              <div class="p-row"><span>S. Chloride</span><span>101</span><span>mmol/L</span><span>98–107</span></div>
+              <div class="p-foot">Impression: Hyperkalaemia. Clinical correlation advised.</div>
+              <p class="p-note" data-i18n="printedNote">This is how the lab prints it. Now press “MedVerse explains”.</p>
+            </div>
+            <div class="card" id="explainedCard">
+              <div class="row-between"><span class="mini-eyebrow" data-i18n="rameshEyebrow">RAMESH · FATHER</span><span class="tag tag-alert" data-i18n="seeDoc">See a doctor today</span></div>
+              <div class="value-line"><span class="name" data-i18n="potassium">Potassium</span><span class="big">6.3</span><span class="muted">mmol/L</span></div>
+              <div class="range"><div class="bar"><span class="normal"></span><span class="dot"></span></div><div class="labels"><span class="l1">3.5</span><span class="l2" data-i18n="normal">normal</span><span class="l3">5.1</span></div></div>
+              <p style="font-size:1.0625rem" data-i18n="kSentence">Much higher than normal. Show this report to a doctor today.</p>
+              <p class="muted" lang="hi" data-i18n="kSentenceOther" data-lang-other>सामान्य से बहुत ज़्यादा। यह रिपोर्ट आज ही डॉक्टर को दिखाएँ।</p>
+              <div class="pill-row"><span class="soft-pill mint"><svg width="16" height="16" viewBox="0 0 24 24" fill="#043B42" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-i18n="listen">Listen in Hindi</span></span><span class="soft-pill" data-i18n="fromLine">From line 14 of the original report</span></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 2 Organise -->
+      <li class="step">
+        <span class="step-num" aria-hidden="true">2</span>
+        <div class="step-body">
+          <div class="text">
+            <h3 data-i18n="s2Title">Organise</h3>
+            <p class="body-lg" data-i18n="s2P">Your mother’s, your father’s and your own records, all in one place and in date order. It also keeps track of medicines and doctor visits, and warns you before you pay for a test you already did.</p>
+            <div class="lottie lottie-step" data-anim="medical_report" data-loop="true" aria-hidden="true"></div>
+          </div>
+          <div class="card" style="padding-bottom:.625rem">
+            <div class="journey-head"><span class="t" data-i18n="journeyTitle">Sunita’s journey</span><span class="muted" style="font-size:.875rem" data-i18n="journeyMonth">September 2026</span></div>
+            <ul class="mini-thread">
+              <li><span class="d" data-i18n="j1d">28 Sep</span><span class="n"></span><span class="c"><b data-i18n="j1t">Prescription — second opinion</b><small data-i18n="j1x">Dr. Meera Sharma · AIIMS OPD, Jodhpur</small></span></li>
+              <li><span class="d" data-i18n="j2d">20 Sep</span><span class="n"></span><span class="c"><b data-i18n="j2t">X-ray, both knees</b><small data-i18n="j2x">Dr. Rajesh Kumar · Shree Hospital, Udaipur</small></span></li>
+              <li><span class="d" data-i18n="j3d">20 Sep</span><span class="n"></span><span class="c"><b data-i18n="j3t">Prescription — orthopaedics</b><small data-i18n="j3x">Dr. Rajesh Kumar · Shree Hospital, Udaipur</small><span class="tag tag-alert" style="align-self:flex-start;margin-top:.125rem" data-i18n="j3w">Same painkiller type as another prescription</span></span></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <!-- 3 Compare -->
+      <li class="step">
+        <span class="step-num" aria-hidden="true">3</span>
+        <div class="step-body">
+          <div class="text">
+            <h3 data-i18n="s3Title">Compare</h3>
+            <p class="body-lg" data-i18n="s3P">Two doctors gave two different answers? MedVerse puts them side by side and shows where they agree and where they differ. It doesn’t pick a side. You also get a list of questions to take to your next visit.</p>
+            <div class="lottie lottie-step" data-anim="search_bacteria" data-loop="true" aria-hidden="true"></div>
+          </div>
+          <div class="demo">
+            <div class="seg" role="group" aria-label="Example">
+              <button type="button" data-case="knee" aria-pressed="true" data-i18n="caseKnee">Knee pain · Sunita</button>
+              <button type="button" data-case="diabetes" aria-pressed="false" data-i18n="caseDia">Diabetes · Ramesh</button>
+            </div>
+            <div class="card" id="cmpCard" aria-live="polite"></div>
+            <p class="note" data-i18n="exampleNote">Sample data for illustration.</p>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div class="link" aria-hidden="true"><span class="link-line"></span><span class="link-node"></span></div>
+
+  <!-- ============ DAILY CARE (scroll story) ============ -->
+  <section id="care" class="wrap section care" aria-labelledby="care-h">
+    <div class="section-head center" style="text-align:center">
+      <p class="eyebrow" data-i18n="careEyebrow">MORE THAN REPORTS</p>
+      <h2 class="h2" id="care-h" data-i18n="careH">Daily care, not just paperwork.</h2>
+      <p class="body-lg" data-i18n="careP">Health is mostly what happens between doctor visits. Scroll to see what MedVerse does on the ordinary days.</p>
+    </div>
+    <div class="care-grid">
+      <div class="care-steps">
+        <article class="care-step" data-panel="0">
+          <span class="care-n" aria-hidden="true">01</span>
+          <h3 data-i18n="c1t">Write down BP and sugar</h3>
+          <p data-i18n="c1b">Log blood pressure, sugar, weight, oxygen and pulse. Each reading is coloured, with a chart of the last 30 and a 7-day average. A very high or very low reading says what to do and shows a Call 108 button. One tap sends the list to your doctor.</p>
+          <div class="care-inline" aria-hidden="true"><img class="shot" src="assets/img/app/readings.webp" width="540" height="1117" loading="lazy" alt="MedVerse blood sugar screen with a coloured reading, a 7-day average and a chart"></div>
+        </article>
+        <article class="care-step" data-panel="1">
+          <span class="care-n" aria-hidden="true">02</span>
+          <h3 data-i18n="c2t">Medicines that remind you</h3>
+          <p data-i18n="c2b">Photograph the strip and MedVerse fills in the name, the type and the expiry date for you to check. Every dose is reminded on your phone, even with no internet. Connect a Bluetooth pill box and opening a lid ticks the dose.</p>
+          <div class="care-inline" aria-hidden="true"><div class="lottie panel-anim" data-anim="scanning" data-loop="true" aria-hidden="true"></div><div class="lottie panel-anim small" data-anim="reminder_bell" data-loop="true" aria-hidden="true"></div></div>
+        </article>
+        <article class="care-step" data-panel="2">
+          <span class="care-n" aria-hidden="true">03</span>
+          <h3 data-i18n="c3t">Never miss a vaccine</h3>
+          <p data-i18n="c3b">Add a child’s date of birth and MedVerse lays out India’s national vaccine schedule: what is done, what is due and what is overdue. Tick each one when it is given. You get a reminder a week before and on the day.</p>
+          <div class="care-inline" aria-hidden="true"><img class="shot" src="assets/img/app/vaccines.webp" width="540" height="1117" loading="lazy" alt="MedVerse vaccine schedule for a child showing done and upcoming vaccines"></div>
+        </article>
+        <article class="care-step" data-panel="3">
+          <span class="care-n" aria-hidden="true">04</span>
+          <h3 data-i18n="c4t">Cards you can find in a hurry</h3>
+          <p data-i18n="c4b">Keep a photo and the number of your health insurance, Ayushman Bharat or ID card. Add the expiry date and you are reminded 30 days, 7 days and on the day. Cards never go on a shared health card or into an export.</p>
+          <div class="care-inline" aria-hidden="true"><img class="shot" src="assets/img/app/cards.webp" width="540" height="1117" loading="lazy" alt="MedVerse saved insurance card that expires in 24 days"></div>
+        </article>
+        <article class="care-step" data-panel="4">
+          <span class="care-n" aria-hidden="true">05</span>
+          <h3 data-i18n="c5t">Let family look after a parent</h3>
+          <p data-i18n="c5b">A parent makes a one-time code. A son or daughter enters it and can see whether today’s doses were taken, what is running low, the next doctor visit and the latest BP and sugar. They can only look, never change, and never see reports, photos or cards. Either side can stop it any time.</p>
+          <div class="care-inline" aria-hidden="true"><img class="shot" src="assets/img/app/caregiver.webp" width="540" height="1117" loading="lazy" alt="MedVerse caregiver view showing today’s doses, a missed dose, low stock and the next visit"></div>
+        </article>
+        <article class="care-step" data-panel="5">
+          <span class="care-n" aria-hidden="true">06</span>
+          <h3 data-i18n="c6t">When help is needed</h3>
+          <p data-i18n="c6b">SOS texts your emergency contact by itself: a map link to where you are, your blood group, allergies and medicines. The emergency screen lists the nearest hospitals, pharmacies and blood banks with Directions and Call buttons. Turn on the lock-screen card and a helper can read your blood group and scan a QR without unlocking the phone.</p>
+          <div class="care-inline" aria-hidden="true"><img class="shot" src="assets/img/app/emergency.webp" width="540" height="1117" loading="lazy" alt="MedVerse emergency screen with SOS, call buttons and a message sent to the emergency contact"></div>
+        </article>
+        <article class="care-step" data-panel="6">
+          <span class="care-n" aria-hidden="true">07</span>
+          <h3 data-i18n="c7t">Works when the network does not</h3>
+          <p data-i18n="c7b">Open your saved records, tick doses and add medicines or readings with no internet. The changes wait on your phone and are sent as soon as you are online, even if the app was closed or the phone restarted in between.</p>
+          <div class="care-inline" aria-hidden="true"><div class="lottie panel-anim" data-anim="offline" data-loop="true" aria-hidden="true"></div></div>
+        </article>
+      </div>
+      <div class="care-stage" aria-hidden="true">
+        <div class="care-phone">
+          <div class="care-screen">
+          <div class="care-panel is-on" data-panel="0"><img class="shot" src="assets/img/app/readings.webp" width="540" height="1117" loading="lazy" alt="MedVerse blood sugar screen with a coloured reading, a 7-day average and a chart"></div>
+          <div class="care-panel" data-panel="1"><div class="lottie panel-anim" data-anim="scanning" data-loop="true" aria-hidden="true"></div><div class="lottie panel-anim small" data-anim="reminder_bell" data-loop="true" aria-hidden="true"></div></div>
+          <div class="care-panel" data-panel="2"><img class="shot" src="assets/img/app/vaccines.webp" width="540" height="1117" loading="lazy" alt="MedVerse vaccine schedule for a child showing done and upcoming vaccines"></div>
+          <div class="care-panel" data-panel="3"><img class="shot" src="assets/img/app/cards.webp" width="540" height="1117" loading="lazy" alt="MedVerse saved insurance card that expires in 24 days"></div>
+          <div class="care-panel" data-panel="4"><img class="shot" src="assets/img/app/caregiver.webp" width="540" height="1117" loading="lazy" alt="MedVerse caregiver view showing today’s doses, a missed dose, low stock and the next visit"></div>
+          <div class="care-panel" data-panel="5"><img class="shot" src="assets/img/app/emergency.webp" width="540" height="1117" loading="lazy" alt="MedVerse emergency screen with SOS, call buttons and a message sent to the emergency contact"></div>
+          <div class="care-panel" data-panel="6"><div class="lottie panel-anim" data-anim="offline" data-loop="true" aria-hidden="true"></div></div>
+          </div>
+        </div>
+        <div class="care-dots"><span data-dot="0"></span><span data-dot="1"></span><span data-dot="2"></span><span data-dot="3"></span><span data-dot="4"></span><span data-dot="5"></span><span data-dot="6"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="link" aria-hidden="true"><span class="link-line"></span><span class="link-node"></span></div>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="wrap section" aria-labelledby="feat-h">
+    <div class="section-head center" style="text-align:center">
+      <p class="eyebrow" data-i18n="featEyebrow">EVERYTHING INSIDE</p>
+      <h2 class="h2" id="feat-h" data-i18n="featH">What’s in the app</h2>
+    </div>
+    <ul class="features">
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 13h8M8 17h5"/></svg></span><h3 data-i18n="f1t">Reports in simple words</h3><p data-i18n="f1d">English or Hindi, with every value shown next to its normal range.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3 data-i18n="f2t">Read aloud</h3><p data-i18n="f2d">For parents who would rather listen than read.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v16M16 4v16M4 9h4M16 15h4M4 15h4M16 9h4"/></svg></span><h3 data-i18n="f3t">Two doctors, side by side</h3><p data-i18n="f3d">Where they agree and where they differ, shown without taking sides.</p></li>
+      <li class="feature"><span class="ico warn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A3108" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="12" height="6" rx="3" transform="rotate(-35 9 12)"/><path d="M14 17l6-6M17 20l3-3"/></svg></span><h3 data-i18n="f4t">Medicine clash warning</h3><p data-i18n="f4d">Warns you when two doctors prescribe the same kind of painkiller.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v5l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg></span><h3 data-i18n="f5t">No repeat tests</h3><p data-i18n="f5d">Tells you if a recent report already has the result a doctor is asking for again.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 10h8M8 14h5"/><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><h3 data-i18n="f6t">Questions for your visit</h3><p data-i18n="f6d">Share them on WhatsApp or print them, so nothing gets forgotten at the visit.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg></span><h3 data-i18n="f7t">Emergency health card</h3><p data-i18n="f7d">Blood group, allergies, conditions and an emergency contact on one screen.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><h3 data-i18n="f8t">Locked with your PIN</h3><p data-i18n="f8d">Keep private records behind a PIN, even on a shared phone.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2 .8-3.7 2-4.6 2.3.3 4 2.3 4 4.6"/></svg></span><h3 data-i18n="f9t">ASHA worker mode</h3><p data-i18n="f9d">Keep records for many families from one phone.</p></li>
+
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span><h3 data-i18n="f10t">BP, sugar and weight log</h3><p data-i18n="f10d">Coloured readings, a chart and a one-tap share for your doctor.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 12h10"/></svg></span><h3 data-i18n="f11t">Scan the medicine strip</h3><p data-i18n="f11d">A photo fills in the name, type and expiry date. You check it, then save.</p></li>
+      <li class="feature"><span class="ico warn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A3108" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9 15l6 0"/></svg></span><h3 data-i18n="f12t">Expiry reminders</h3><p data-i18n="f12d">Medicines and cards warn you 30 days, 7 days and on the day.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2l4 4M17 7l3-3M19 9l-8.7 8.7a2 2 0 0 1-2.8 0L6.3 16.5a2 2 0 0 1 0-2.8L15 5"/><path d="M5 19l-3 3M9 15l3 3"/></svg></span><h3 data-i18n="f13t">Child vaccine schedule</h3><p data-i18n="f13d">India’s national schedule from the date of birth, with reminders.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.5-1.5 1.7-2 3-2s2.5.5 3 2M14 10h4M14 13h3"/></svg></span><h3 data-i18n="f14t">Cards and documents</h3><p data-i18n="f14d">Insurance, Ayushman Bharat and ID, photo and number in one place.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.8-2.8l-4.2 4"/><path d="M15 3.5a2.5 2.5 0 0 1 4.2 1.8c0 1.7-2.2 3-4.2 4.7-2-1.7-4.2-3-4.2-4.7A2.5 2.5 0 0 1 15 3.5z"/></svg></span><h3 data-i18n="f15t">Family can look after you</h3><p data-i18n="f15d">A one-time code lets a son or daughter see doses, stock and visits. Look only.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 7 10 10-5 5V2l5 5L7 17"/></svg></span><h3 data-i18n="f16t">Smart pill box</h3><p data-i18n="f16d">Connect a Bluetooth pill box. It gets your schedule and ticks doses when a lid opens.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 0 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><h3 data-i18n="f17t">Hospitals and pharmacies near you</h3><p data-i18n="f17d">The nearest ones with distance, directions and a call button.</p></li>
+      <li class="feature"><span class="ico warn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A3108" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4M12 15v.01"/></svg></span><h3 data-i18n="f18t">SOS texts your family</h3><p data-i18n="f18d">Your location, blood group and allergies go to your emergency contact by SMS.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4M12 15v2"/></svg></span><h3 data-i18n="f19t">Emergency info on the lock screen</h3><p data-i18n="f19d">Blood group, allergies and a QR a helper can read without unlocking.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><path d="m3 3 18 18"/></svg></span><h3 data-i18n="f20t">Safe without internet</h3><p data-i18n="f20d">Changes wait on your phone and are sent later, even after a restart.</p></li>
+      <li class="feature"><span class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#043B42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><h3 data-i18n="f21t">A PDF summary with logo</h3><p data-i18n="f21d">Everyone’s medicines, readings, visits and lab values, ready to print or share.</p></li>
+    </ul>
+  </section>
+
+  <!-- ============ EMERGENCY ============ -->
+  <section id="sos" class="wrap section" aria-labelledby="sos-h">
+    <div class="sos-grid">
+      <div class="lottie lottie-sos" data-anim="ambulance" data-loop="true" aria-hidden="true"></div>
+      <div class="stack" style="gap:1.125rem">
+        <p class="eyebrow" data-i18n="sosEyebrow">IN AN EMERGENCY</p>
+        <h2 class="h2" id="sos-h" data-i18n="sosH">Hold to call for help.</h2>
+        <p class="body-lg" data-i18n="sosP">SOS needs a deliberate press, so it can’t go off by accident, but it is always one hold away.</p>
+        <ol class="install">
+          <li data-i18n="sos1">Press and hold SOS for 1.5 seconds. A quick tap only shows a hint.</li>
+          <li data-i18n="sos2">A 5-second countdown starts with a loud siren and a big Cancel button, so a slip of the thumb doesn’t call anyone.</li>
+          <li data-i18n="sos3">If you don’t cancel, your phone’s dialer opens with 108 ready, and MedVerse texts your emergency contact by itself: a map link to where you are, your blood group, allergies and medicines.</li>
+        <li data-i18n="sos4">The emergency screen then lists the nearest hospitals with directions and a call button, so you can reach one fast.</li>
+        </ol>
+        <p class="note" data-i18n="sosNote">The text needs SMS permission and uses your normal SMS plan. It only goes to the contact you saved, and only when SOS fires or you tap the button.</p>
+        <p class="note" data-i18n="sosTry">Try it on the phone at the top: hold SOS.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="link" aria-hidden="true" style="padding-bottom:0"><span class="link-line"></span></div>
+
+  <!-- ============ SAFETY ============ -->
+  <section id="safety" class="safety" aria-labelledby="safety-h">
+    <div class="wrap">
+      <div class="stack" style="gap:1.125rem">
+        <div class="safety-head"><div class="stack" style="gap:.75rem"><p class="eyebrow" data-i18n="safeEyebrow">OUR PROMISE</p>
+        <h2 class="h2" id="safety-h" data-i18n="safeH">We explain.
+Doctors decide.</h2></div><div class="lottie lottie-shield" data-anim="health_shield" data-loop="true" aria-hidden="true"></div></div>
+        <p class="body-lg" data-i18n="safeP">MedVerse helps you understand your records. It does not diagnose, it does not prescribe, and it never says which doctor is right.</p>
+        <div class="promises">
+          <article class="promise"><h3 data-i18n="p1t">Urgent values go to a doctor</h3><p data-i18n="p1x">If a result is dangerous, like potassium above 6.0, MedVerse shows “see a doctor today” and doesn’t try to explain it away.</p></article>
+          <article class="promise"><h3 data-i18n="p2t">Every explanation shows its source</h3><p data-i18n="p2x">Each plain sentence links back to the line it came from in your report.</p></article>
+          <article class="promise"><h3 data-i18n="p3t">No doctor is ranked</h3><p data-i18n="p3x">Differences are shown side by side so you can talk them through with your doctor.</p></article>
+          <article class="promise"><h3 data-i18n="p4t">Stored in India, visible only to you</h3><p data-i18n="p4x">Your records live in a private account on servers in Mumbai. Only you can open them, and sensitive records can be hidden behind a PIN.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="wrap section" aria-labelledby="faq-h">
+    <div class="section-head center" style="text-align:center">
+      <p class="eyebrow" data-i18n="faqEyebrow">QUESTIONS FAMILIES ASK</p>
+      <h2 class="h2" id="faq-h" data-i18n="faqH">Before you download</h2>
+    </div>
+    <div class="faq-list">
+      <details name="faq" open><summary><span data-i18n="q1">Is MedVerse free?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a1">Yes, it’s free to download and use.</p></details>
+      <details name="faq"><summary><span data-i18n="q2">Is it safe to install from outside the Play Store?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a2">You install it as an APK file straight from this page, because it isn’t on the Play Store yet. Android will ask your permission to install it, which is normal. Only download it from here.</p></details>
+      <details name="faq"><summary><span data-i18n="q3">Who can see my family’s records?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p><span data-i18n="a3">Your records are kept in a private account on servers in Mumbai, India. Only you can open them, and sensitive records can be hidden behind a PIN. To explain a report, its photo and text are read by AI services (Google Cloud Vision and Groq). Our privacy policy has the details.</span> <a href="privacy.html" data-i18n="privacyLink">Read our full Privacy Policy</a></p></details>
+      <details name="faq"><summary><span data-i18n="q4">Does it work without internet?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a4">Mostly yes. Saved records, reminders, ticking doses and adding medicines or readings work without internet, and the changes are sent later. Reading a new report, the AI explanations, comparisons and nearby places need internet. SOS opens your phone’s dialer for 108, which works wherever you have a mobile network.</p></details>
+      <details name="faq"><summary><span data-i18n="q5">Will MedVerse tell me what illness I have?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a5">No. It explains what your reports and prescriptions already say. Only your doctor can diagnose you or decide your treatment.</p></details>
+      <details name="faq"><summary><span data-i18n="q6">Which phones does it work on?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a6">Android phones with Android 7.0 or newer. An iPhone version is not available yet.</p></details>
+      <details name="faq"><summary><span data-i18n="q7">How do I scan a report or prescription?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a7">Take a clear photo of your report or prescription with the app. MedVerse reads the text (this needs internet) and explains the medical terms in plain words.</p></details>
+      <details name="faq"><summary><span data-i18n="q8">Can I manage records for my whole family?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a8">Yes. Add separate profiles for your parents, children and spouse, and keep each person’s records, medicines and doctor visits in one app.</p></details>
+      <details name="faq"><summary><span data-i18n="q9">How does the two-doctor comparison work?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a9">Add prescriptions from two doctors and MedVerse lists what they agree on, like the tests, and what is different, like the medicines. It also flags two similar painkillers.</p></details>
+      <details name="faq"><summary><span data-i18n="q11">Can my son or daughter see my medicines?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a11">Only if you choose. Make a one-time code in Profile and give it to them. They can then see today’s doses, low stock, your next visit and your latest BP and sugar. They cannot change anything and never see your reports, photos, cards or private vault. You can stop it at any time.</p></details>
+      <details name="faq"><summary><span data-i18n="q12">Does MedVerse track my location?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a12">No. It reads your location only when you open Nearby help or when SOS fires, and does not save it to your account. If you switch on SOS texts, the location goes to your emergency contact in that message, and for a few minutes after if the app stays open.</p></details>
+      <details name="faq"><summary><span data-i18n="q13">Can I connect a smart pill box?</span><span class="pm" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary><p data-i18n="a13">The app can connect to a Bluetooth pill box that follows MedVerse’s open format, send it your schedule and tick doses when a lid opens. There is a demo box in the app to try it, and the format and a sample ESP32 sketch are in our project files. We have not tested it on a real box yet.</p></details>
+    </div>
+  </section>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <section id="download" class="wrap download" aria-labelledby="dl-h">
+    <div class="dl-card">
+      <div class="stack" style="gap:1.125rem">
+        <p class="eyebrow" data-i18n="dlEyebrow">FREE FOR ANDROID</p>
+        <h2 class="h2" id="dl-h" data-i18n="dlH">Get MedVerse on your phone</h2>
+        <p class="body-lg" data-i18n="dlP">Works on Android 7.0 and newer. MedVerse isn’t on the Play Store yet, so you install it directly — it takes about a minute.</p>
+        <a class="btn btn-primary" id="apkLink" href="medverse.apk" download="medverse.apk">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          <span data-i18n="dlBtn">Download MedVerse (70.2 MB)</span>
+        </a>
+        <ul class="chips"><li data-i18n="chipVersion">Version 1.0</li><li>Android 7.0+</li><li data-i18n="chipLangs">English &amp; Hindi</li><li data-i18n="chipFree">Free</li></ul>
+        <p class="sha">SHA-256: <code>467bfe69c3bb3deb49ea2b3b3750e37bd57696cbdeb0a549195c5c0b24e3dbd1</code></p>
+      </div>
+      <div class="stack" style="gap:.875rem">
+        <h3 style="font-family:var(--sans);font-size:1.125rem;font-weight:700" data-i18n="installH">How to install</h3>
+        <ol class="install">
+          <li data-i18n="i1">Tap Download on your Android phone.</li>
+          <li data-i18n="i2">Open the file. If your phone asks, allow “Install unknown apps” for your browser.</li>
+          <li data-i18n="i3">Open MedVerse and add your family.</li>
+        </ol>
+        <div class="qr">
+          <div class="qr-box placeholder" id="qrBox" data-qr-src="assets/img/qr-apk.svg">[QR code to APK link]</div>
+          <p class="muted" data-i18n="qrText">On a computer? Scan this with your phone’s camera to download.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEAM ============ -->
+  <section id="team" class="wrap team" aria-labelledby="team-h">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="teamEyebrow">WHO MADE IT</p>
+      <h2 class="h2" id="team-h" data-i18n="teamH">Built in Pratapgarh, Rajasthan</h2>
+    </div>
+    <div class="people">
+      <article class="person"><div class="avatar dark" aria-hidden="true"><span>PM</span></div><div><h3 data-i18n="p1Name">Preeti Maheshwari</h3><p class="role" style="margin:.25rem 0 0" data-i18n="p1Role">App &amp; backend developer</p><p data-i18n="p1Bio">Built the Flutter app, the part that reads report photos, and the comparison of two doctors’ advice.</p></div></article>
+      <article class="person"><div class="avatar" aria-hidden="true"><span>SM</span></div><div><h3 data-i18n="p2Name">Suhani Maheshwari</h3><p class="role" style="margin:.25rem 0 0" data-i18n="p2Role">Research &amp; documentation</p><p data-i18n="p2Bio">Ran our survey of 31 people, shaped how the app works for families, and wrote the project documentation.</p></div></article>
+    </div>
+    <div class="academic"><b data-i18n="academic">ACADEMIC CONTEXT</b><strong>IEEE WIE ILS 2026</strong><span class="muted" data-i18n="college">APC Post Graduate College, Pratapgarh, Rajasthan, India</span></div>
+  </section>
+
+  <!-- ============ BRAND BAND ============ -->
+  <section class="brand-band" aria-hidden="false">
+    <div class="lottie lottie-logo" data-anim="medverse_logo" data-loop="false" role="img" aria-label="MedVerse — Understand, Organise, Compare"></div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="stack" style="gap:.75rem">
+        <span class="brand" style="gap:.625rem"><svg width="24" height="28" viewBox="-6 -6 99 112" fill="none" aria-hidden="true"><path d="M50.8 100 L55.4 92.8 L62.2 86.8 L67.1 79.6 L71.7 71.9 L76.1 63.5 L79.9 55.1 L82.8 46.7 L85 38.3 L86.2 29.9 L86.2 21.6 L84.8 13.2 L81.1 5.1 L73.9 0 L65.5 1.6 L57.7 6.3 L50.5 11.4 L42.1 13.7 L34 9.9 L26.9 4.9 L18.8 .7 L10.4 .6 L4 6.9 L.9 15.3 L0 23.7 L1 32 L3.7 40.4 L7.7 48.8 L12.5 56.3 L18.1 63.5 L24.5 70.1 L31.3 76.4 L38.2 81.7" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M23.9 32.9 L32.2 36.7 L39.7 42.1 L46 49.1 L50.4 57.2 L52.8 65.6 L53.1 72 L50.8 100" stroke="#043B42" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="brand-word" style="font-size:1.125rem">MEDVERSE</span></span>
+        <p class="muted" style="font-size:.9375rem;max-width:26em" data-i18n="footTag">Helping families understand their medical papers.</p>
+      </div>
+      <nav aria-labelledby="f-explore">
+        <h2 id="f-explore" data-i18n="explore">EXPLORE</h2>
+        <ul>
+          <li><a href="#how" data-i18n="navHow">How it works</a></li>
+          <li><a href="#care" data-i18n="navCare">Daily care</a></li>
+          <li><a href="#features" data-i18n="navFeatures">Features</a></li>
+          <li><a href="#safety" data-i18n="ourPromise">Our promise</a></li>
+          <li><a href="#faq" data-i18n="faqLink">FAQ</a></li>
+          <li><a href="privacy.html" data-i18n="privacyLink">Read our full Privacy Policy</a></li>
+          <li><a href="#download" style="font-weight:700" data-i18n="navDownload">Download</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 data-i18n="contact">FIND US</h2>
+        <ul><li class="muted" data-i18n="place">Pratapgarh, Rajasthan, India</li><li><a href="https://github.com/CosmicMadhav/medverse" rel="noopener">GitHub</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 MedVerse</span><span data-i18n="disclaimer">MedVerse explains health information. It does not replace a doctor’s advice or diagnosis.</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/strings.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/scroll.js" defer></script>
+<script src="assets/js/lottie.min.js" defer></script>
+<script src="assets/js/anim.js" defer></script>
+</body>
+</html>
