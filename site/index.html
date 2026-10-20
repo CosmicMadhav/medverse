@@ -27,6 +27,12 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="stylesheet" href="assets/css/site.css">
   <script>document.documentElement.classList.add('js');</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"VideoObject","name":"MedVerse: a walk through the app","description":"A three minute walk through the MedVerse app: reports explained in plain words, two doctors side by side, readings, vaccines, cards, SOS and sharing with family.","thumbnailUrl":"https://medverse-nu.vercel.app/assets/video/app/medverse_app_poster.jpg","contentUrl":"https://medverse-nu.vercel.app/assets/video/app/medverse_app_1080p.mp4","uploadDate":"2026-10-18","duration":"PT3M8S"},
+    {"@type":"VideoObject","name":"MedVerse pill box: a design that gives one pill at a time","description":"A 72 second look at the design of a six-medicine pill box. It is a design only: not built or tested with real pills yet, and not a medical device.","thumbnailUrl":"https://medverse-nu.vercel.app/assets/video/pillbox/pillbox_poster.jpg","contentUrl":"https://medverse-nu.vercel.app/assets/video/pillbox/pillbox_1080p.mp4","uploadDate":"2026-10-20","duration":"PT1M12S"}
+  ]}
+  </script>
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
@@ -43,6 +49,8 @@
       <a href="#how" data-i18n="navHow">How it works</a>
       <a href="#care" data-i18n="navCare">Daily care</a>
       <a href="#features" data-i18n="navFeatures">Features</a>
+      <a href="#watch" data-i18n="navWatch">Watch</a>
+      <a href="#pillbox" data-i18n="navPill">Pill box</a>
       <a href="#sos" data-i18n="navSos">Emergency</a>
       <a href="#safety" data-i18n="navSafety">Safety</a>
       <a href="#team" data-i18n="navTeam">Team</a>
@@ -94,6 +102,20 @@
   <div class="link" aria-hidden="true"><span class="link-line"></span><span class="link-node"></span></div>
 
   <!-- ============ SURVEY ============ -->
+  <!-- ============ WATCH THE APP ============ -->
+  <section id="watch" class="wrap section" aria-labelledby="watch-h">
+    <div class="section-head center" style="text-align:center">
+      <p class="eyebrow" data-i18n="watchEyebrow">SEE IT IN 3 MINUTES</p>
+      <h2 class="h2" id="watch-h" data-i18n="watchH">Watch MedVerse in action.</h2>
+      <p class="body-lg" data-i18n="watchP">A walk through the app: reports explained, two doctors side by side, readings, vaccines, cards, SOS and sharing with family. In English and Hindi.</p>
+    </div>
+    <div class="video-frame">
+      <video controls playsinline preload="none" poster="assets/video/app/medverse_app_poster.jpg" data-i18n-aria="watchAria" aria-label="Video: a walk through the MedVerse app, 3 minutes">
+        <source src="assets/video/app/medverse_app_1080p.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
   <section class="wrap section center" aria-labelledby="survey-h">
     <div class="section-head center">
       <p class="eyebrow" data-i18n="surveyEyebrow">WHY WE BUILT IT</p>
@@ -303,6 +325,33 @@
   </section>
 
   <!-- ============ EMERGENCY ============ -->
+  <!-- ============ PILL BOX (DESIGN) ============ -->
+  <section id="pillbox" class="wrap section" aria-labelledby="pb-h">
+    <div class="pill-grid">
+      <div class="stack" style="gap:1.125rem">
+        <p class="eyebrow" data-i18n="pbEyebrow">A DESIGN WE ARE WORKING ON</p>
+        <h2 class="h2" id="pb-h" data-i18n="pbH">A pill box that gives one pill at a time.</h2>
+        <p class="body-lg" data-i18n="pbP">Six medicines, each in its own tank. The box reminds you, turns a small wheel and drops one pill into a drawer. Two light beams count it. If two come out, it stops and tells you.</p>
+        <ul class="pill-points">
+          <li data-i18n="pbL1">Small enough for a bedside table: 20 × 20 × 15.6 cm.</li>
+          <li data-i18n="pbL2">Pour pills into a wide tank. No picking them one by one.</li>
+          <li data-i18n="pbL3">A touch screen, a light bar and a drawer, in English and Hindi.</li>
+        </ul>
+        <p class="status-note" data-i18n="pbStatus">Honest status: this is a design, drawn and checked on a computer. It is not built or tested with real pills yet, and it is not a medical device.</p>
+      </div>
+      <div>
+        <div class="video-frame">
+          <video controls playsinline preload="none" poster="assets/video/pillbox/pillbox_poster.jpg" data-i18n-aria="pbAria" aria-label="Video: the MedVerse pill box design, 72 seconds">
+            <source src="assets/video/pillbox/pillbox_1080p.mp4" type="video/mp4">
+            <track kind="captions" srclang="en" label="English" src="assets/video/pillbox/captions_en.vtt" default>
+            <track kind="captions" srclang="hi" label="हिंदी" src="assets/video/pillbox/captions_hi.vtt">
+          </video>
+        </div>
+        <p class="note" data-i18n="pbCc">Captions are in English and Hindi: use the CC button in the player.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="sos" class="wrap section" aria-labelledby="sos-h">
     <div class="sos-grid">
       <div class="lottie lottie-sos" data-anim="ambulance" data-loop="true" aria-hidden="true"></div>
